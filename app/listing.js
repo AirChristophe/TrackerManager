@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { View, FlatList, Text } from "react-native";
 import { Link } from "expo-router";
@@ -16,9 +16,9 @@ export default function Page() {
     setDatas(d);
   };
 
-  useFocusEffect(() => {
+  useEffect(() => {
     _fetchData();
-  });
+  }, []);
 
   return (
     <View>
