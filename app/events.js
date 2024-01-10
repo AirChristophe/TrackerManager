@@ -17,12 +17,12 @@ export default function Page() {
   };
 
   useEffect(() => {
-    _fetchData();
+    _fetchData();    
   }, []);
 
   return (
     <View>
-      <Text>LISTING</Text>
+      <Text>EVENTS</Text>
 
       <FlatList
         keyExtractor={(item) => item.id}
@@ -46,8 +46,7 @@ export default function Page() {
             >
               <View>
                 <Text>{item.name}</Text>
-                <Text>{item.timezone}</Text>
-                <Text>{item.sport}</Text>
+                <Text>{item.start_time}</Text>
               </View>
             </Link>
           </View>

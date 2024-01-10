@@ -6,7 +6,6 @@ export default function Page() {
     <View>
         <Text>Page1</Text>
         <Link href="/">Home</Link>
-        <Link href="/page2">Page 2</Link>
     </View>
   );
 }
