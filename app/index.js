@@ -22,5 +22,6 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: "pink",
+    padding: 10,
   },
 });
