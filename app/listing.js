@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-
-import { View, FlatList, Text } from "react-native";
+import { router } from "expo-router";
+import { View, FlatList, Text, Pressable } from "react-native";
 import { Link } from "expo-router";
 import { useFocusEffect } from "expo-router";
 
@@ -12,7 +12,7 @@ export default function Page() {
     const response = await fetch(url);
     const d = await response.json();
 
-    console.log(d);
+    //console.log(d);
     setDatas(d);
   };
 
@@ -37,9 +37,19 @@ export default function Page() {
               padding: 5,
             }}
           >
-            <Text>{item.name}</Text>
-            <Text>{item.timezone}</Text>
-            <Text>{item.sport}</Text>
+            <Link
+              href={{
+                pathname: "/event",
+                // /* 1. Navigate to the details route with query params */
+                params: { id: item.id, name: item.name },
+              }}
+            >
+              <View>
+                <Text>{item.name}</Text>
+                <Text>{item.timezone}</Text>
+                <Text>{item.sport}</Text>
+              </View>
+            </Link>
           </View>
         )}
       />
