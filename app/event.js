@@ -21,10 +21,25 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
     const url = "https://splanner.georacing.com/trackers/affectTrackerToEvent/" + params.id + "/" + tracker_name;
     const response = await fetch(url);
     const d = await response.json();
-
-    //console.log(d);
-    //setDatas(d);
+    console.log("_affectTracker : params.id : " + params.id);  
+    _getTrackersOfEvent(params.id);
   };
+
+  const _getTrackersOfEvent = async (event_id) => {
+    const url = "https://splanner.georacing.com/trackers/getTrackersOfEvent/" + event_id;
+    const response = await fetch(url);
+    const d = await response.json();
+
+    console.log(d);
+    console.log("length : " + d.length);
+    setDatas(d);
+  };
+
+  useEffect(() => {
+    _getTrackersOfEvent(params.id);
+  }, []);
+
+  
 
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
@@ -39,10 +54,10 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
   }, []);
 
   const handleBarCodeScanned = ({ type, data }) => {
-    console.log("handleBarCodeScanned");
+//console.log("handleBarCodeScanned");
     setScanned(true);
     //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-    console.log("handleBarCodeScanned data : " + data);
+//console.log("handleBarCodeScanned data : " + data);
     _affectTracker(data);
 
     
@@ -66,6 +81,8 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
       {scanned && (
         <Button style={{ height: 80 }} title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
       )}
+       <Text style={styles.text}>Nb trackers in Event</Text>
+       <Text style={styles.text}>{datas.length}</Text>
     </View>
   );
 }
@@ -74,6 +91,11 @@ const styles = StyleSheet.create({
   title: {
     color: "#014786",
     fontSize: fontPixel(22),
+  },
+
+  text: {
+    color: "#000000",
+    fontSize: fontPixel(18),
   },
 
   container: {
