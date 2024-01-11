@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   itemText: {
-    color: "#980000",
-    fontSize: fontPixel(15),
+    color: "#FFFFFF",
+    fontSize: fontPixel(20),
   },
 });

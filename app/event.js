@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, FlatList, Text, Pressable } from "react-native";
+import { View, StyleSheet, FlatList, Text, Button,Pressable } from "react-native";
 import { Link, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import {
@@ -31,6 +31,7 @@ export default function Page() {
     console.log("handleBarCodeScanned");
     setScanned(true);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    
   };
 
   if (hasPermission === null) {
@@ -48,7 +49,7 @@ export default function Page() {
         style={{ height: 400 }}
       />
       {scanned && (
-        <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
+        <Button style={{ height: 80 }} title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
       )}
     </View>
   );

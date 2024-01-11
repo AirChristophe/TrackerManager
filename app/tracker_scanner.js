@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import {  router } from "expo-router";
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -21,6 +22,7 @@ export default function App() {
     console.log("handleBarCodeScanned");
     setScanned(true);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    router.replace('/tracker_detail');
   };
 
   if (hasPermission === null) {

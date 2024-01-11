@@ -1,6 +1,5 @@
 import { View, Pressable, StyleSheet, Text,Dimensions,PixelRatio  } from "react-native";
 import { Link } from "expo-router";
-
 import { widthPixel,heightPixel, fontPixel,pixelSizeVertical,pixelSizeHorizontal} from './fontsize';
 
 
@@ -11,6 +10,12 @@ export default function Page() {
       <View style={styles.menu}>        
         <Link style={styles.item} href="/events">Events</Link>
         <Link style={styles.item} href="/tracker_scanner">Scan one tracker</Link>
+        <Link style={styles.item} 
+          href={{
+            pathname: "/tracker_detail",
+            params: { name: 'QL001' }
+          }}
+          >detail tracker</Link>
         </View>
     </View>
   );
