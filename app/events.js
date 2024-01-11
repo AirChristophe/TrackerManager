@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, router, useFocusEffect } from "expo-router";
-import { StyleSheet,View, FlatList, Text, Pressable } from "react-native";
-import { widthPixel,heightPixel, fontPixel,pixelSizeVertical,pixelSizeHorizontal} from './fontsize';
+import { StyleSheet, View, FlatList, Text, Pressable } from "react-native";
+import {
+  widthPixel,
+  heightPixel,
+  fontPixel,
+  pixelSizeVertical,
+  pixelSizeHorizontal,
+} from "./fontsize";
 
 export default function Page() {
   const [datas, setDatas] = useState([]);
@@ -16,7 +22,7 @@ export default function Page() {
   };
 
   useEffect(() => {
-    _fetchData();    
+    _fetchData();
   }, []);
 
   return (
@@ -26,7 +32,7 @@ export default function Page() {
         keyExtractor={(item) => item.id}
         data={datas}
         renderItem={({ item }) => (
-          <View style={styles.item}>
+          <View style={styles.itemRow}>
             <Link
               href={{
                 pathname: "/event",
@@ -35,7 +41,7 @@ export default function Page() {
               }}
             >
               <View>
-                <Text>{item.name}</Text>
+                <Text style={styles.itemText}>{item.name}</Text>
               </View>
             </Link>
           </View>
@@ -45,12 +51,9 @@ export default function Page() {
   );
 }
 
-
-
-
 const styles = StyleSheet.create({
   title: {
-    color:"#014786",
+    color: "#014786",
     fontSize: fontPixel(35),
     marginTop: 20,
     marginBottom: 20,
@@ -63,16 +66,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 0,
     margin: 0,
-    width:"100%"
+    width: "100%",
   },
-  item: {
+  itemRow: {
     padding: 10,
     margin: 5,
     backgroundColor: "#014786",
-    color:"#FF0000",
-    fontSize: fontPixel(15),
-    alignItems: 'center',
+    alignItems: "center",
     justifyContent: "center",
-    width:"100%"
+    width: "100%",
+  },
+  itemText: {
+    color: "#980000",
+    fontSize: fontPixel(15),
   },
 });
