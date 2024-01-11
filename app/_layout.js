@@ -3,7 +3,7 @@ import { View } from "react-native";
 
 export default function HomeLayout() {
   return (
-    <View style={{ margin: 50 }}>
+    <View style={{ margin: 20 }}>
       <Slot />
     </View>
   );
