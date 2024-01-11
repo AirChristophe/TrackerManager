@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, FlatList, Text, Button,Pressable } from "react-native";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Text,
+  Button,
+  Pressable,
+} from "react-native";
 import { Link, useFocusEffect, useLocalSearchParams } from "expo-router";
 import {
   widthPixel,
@@ -12,30 +19,28 @@ import {
 export default function Page() {
   const params = useLocalSearchParams();
   console.log(params);
-  
 
-  const [datas, setDatas] = useState([]);
+  const [data, setData] = useState({});
 
   const _fetchData = async () => {
-    const url = "https://splanner.georacing.com/trackers/getTrackerDetailByName/QL001";
+    const url =
+      "https://splanner.georacing.com/trackers/getTrackerDetailByName/QL001";
     const response = await fetch(url);
     const d = await response.json();
 
     console.log(d);
     console.log("Id provider : " + d.Tracker.id_provider_tracker);
-    setDatas(d);
+    setData(d);
   };
 
   useEffect(() => {
     _fetchData();
   }, []);
 
- 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{params?.name}</Text>
-      <Text style={styles.title}>{datas.Tracker.id_provider_tracker}</Text>
-      
+      <Text style={styles.title}>{data?.Tracker?.id_provider_tracker}</Text>
     </View>
   );
 }
