@@ -24,7 +24,7 @@ export default function Page() {
 
   const _fetchData = async () => {
     const url =
-      "https://splanner.georacing.com/trackers/getTrackerDetailByName/QL001";
+      "https://splanner.georacing.com/trackers/getTrackerDetailByName/" + params.name;
     const response = await fetch(url);
     const d = await response.json();
 
@@ -40,7 +40,41 @@ export default function Page() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{params?.name}</Text>
-      <Text style={styles.title}>{data?.Tracker?.id_provider_tracker}</Text>
+        <View style={styles.row}>
+            <Text style={styles.text}>ID Provider</Text>
+                <View style={styles.right}>
+                    <Text style={styles.text}>
+                    {data?.Tracker?.id_provider_tracker}
+                    </Text>
+                </View>
+        </View>
+        <View style={styles.row}>
+            <Text style={styles.text}>Quality</Text>
+                <View style={styles.right}>
+                    <Text style={styles.text}>
+                    {data?.Tracker?.quality}
+                    </Text>
+                </View>
+        </View>
+        <View style={styles.row}>
+            <Text style={styles.text}>SIM Provider</Text>
+                <View style={styles.right}>
+                    <Text style={styles.text}>
+                    {data?.Tracker?.sim_provider}
+                    </Text>
+                </View>
+        </View>
+        <View style={styles.row}>
+            <Text style={styles.text}>SIM Id</Text>
+                <View style={styles.right}>
+                    <Text style={styles.text}>
+                    {data?.Tracker?.sim_id}
+                    </Text>
+                </View>
+        </View>
+
+        
+      
     </View>
   );
 }
@@ -54,13 +88,36 @@ const styles = StyleSheet.create({
 
   container: {
     display: "flex",
+    //flex:1,
     flexDirection: "column",
     backgroundColor: "#FFFFFF",
-    height: "100%",
-    //alignItems: "center",
-    //justifyContent: "center",
-    //padding: 0,
-    //margin: 0,
-    //width: "100%",
+    //height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 0,
+    margin: 0,
+    width: "100%",
+
   },
+
+    row: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        padding: 5,
+        borderBottomWidth: 1,
+        borderBottomColor: "#01478650",
+        width:"100%"
+    },
+    right: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "left",
+        justifyContent: "left",
+        flex:0.7
+    },
+    text: {
+        color: '#014786',
+        fontSize: fontPixel(18),
+    },
 });
