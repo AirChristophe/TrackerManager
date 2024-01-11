@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { View,StyleSheet, FlatList, Text, Pressable } from "react-native";
 import { Link, useFocusEffect,useLocalSearchParams } from "expo-router";
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import { widthPixel,heightPixel, fontPixel,pixelSizeVertical,pixelSizeHorizontal} from './fontsize';
 
 export default function Page() {
   const params = useLocalSearchParams();
 
-  console.log(params);
+console.log(params);
 
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
@@ -21,7 +22,7 @@ export default function Page() {
   }, []);
 
   const handleBarCodeScanned = ({ type, data }) => {
-    console.log("handleBarCodeScanned");    
+  console.log("handleBarCodeScanned");    
     setScanned(true);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   };
@@ -36,8 +37,8 @@ export default function Page() {
 
 
   return (
-    <View>
-        <Text>{params?.name}</Text>
+    <View style={styles.container}>
+        <Text style={styles.title}>{params?.name}</Text>
         <BarCodeScanner
           
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
@@ -49,11 +50,32 @@ export default function Page() {
 }
 
 
+
 const styles = StyleSheet.create({
+  title: {
+    color:"#014786",
+    fontSize: fontPixel(25),
+    marginTop: 20,
+    marginBottom: 20,
+  },
+
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    display: "flex",
+    //backgroundColor: "#ffff44",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 0,
+    margin: 0,
+    width:"100%"
+  },
+  item: {
+    padding: 10,
+    margin: 5,
+    backgroundColor: "#014786",
+    color:"#FF0000",
+    fontSize: fontPixel(15),
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: "center",
+    width:"100%"
   },
 });
