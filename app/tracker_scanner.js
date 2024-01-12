@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import { Text, View, StyleSheet, Button,TextInput } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import {  router } from "expo-router";
 import {
@@ -28,8 +28,15 @@ export default function App() {
     setScanned(true);
     //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
     //router.replace('/tracker_detail');
-    router.replace({ pathname: '/tracker_detail', params: { name: data } });
+    router.push({ pathname: '/tracker_detail', params: { name: data } });
   };
+
+  const goToTracker = ({ tracker_name }) => {
+    alert(tracker_name);
+    //router.push({ pathname: '/tracker_detail', params: { name: tracker_name } });
+  };
+
+
 
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;
@@ -48,6 +55,11 @@ export default function App() {
       {scanned && (
         <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
       )}
+      
+      <Text style={styles.or}>OR</Text>
+
+      <TextInput style={styles.text_input} placeholder={"Tracker name"} onSubmitEditing={(event) => {goToTracker(event.nativeEvent.text)}}   />
+
     </View>
   );
 }
@@ -75,10 +87,28 @@ const styles = StyleSheet.create({
 
   scanner: {
     width: 300,
-    height: 400,
+    height: 350,
     margin: 20,
 
   },
+
+  text_input: {
+    borderWidth: 1, 
+    borderStyle: "solid", 
+    borderColor: "#000000",
+    fontSize: fontPixel(25),
+    padding:5
+
+  },
+
+
+  or: {
+    color: "#014786",
+    fontSize: fontPixel(25),
+    marginBottom: 10,
+  },
+
+  
 });
 
 
