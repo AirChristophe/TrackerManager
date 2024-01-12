@@ -1,7 +1,9 @@
 export default {
   COLOR_TITLE: "#014786",
   SIZE_TITLE: 35,
+  COLOR_FOOTER: "#014786",
 
   BG_COLOR_BUTTON: "#014786",
   BG_COLOR_MENU: "#173c54",
+  VERSION: "1.01",
 };

@@ -29,7 +29,7 @@ export default function Page() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Events</Text>
-      <FlatList
+      <FlatList style={styles.listing}
         keyExtractor={(item) => item.id}
         data={datas}
         renderItem={({ item }) => (
@@ -69,6 +69,11 @@ const styles = StyleSheet.create({
     margin: 0,
     width: "100%",
   },
+  listing: {
+    width: "95%",
+    height:"60%",
+  },
+
   itemRow: {
     padding: 10,
     margin: 5,

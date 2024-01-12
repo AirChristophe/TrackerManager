@@ -22,10 +22,31 @@ import {
     const [login, setLogin] = useState("");
     const [passwd, setPasswd] = useState("");
 
-    const _login = () => {
-        alert("login");
+    const _login = async () => {
+        
+
+        const response = await fetch('https://splanner.georacing.com/users/app_geotraker_management_login/', {
+            method: 'POST',
+            //headers: {
+            //    Accept: 'application/json',
+            //    'Content-Type': 'application/json',
+            //},
+            body: JSON.stringify({
+                "data[User][email]": login,
+                "data[User][password]": passwd,
+            }),
+            });
+
+            //const response = await fetch('https://splanner.georacing.com/users/app_geotraker_management_login');
+            //const response = await fetch("http://0vh-player.georacing.com/datas/events.json");
+console.log("---------------LLL -----");             
+//console.log(response.text()); 
+//alert(response.text());
+        const d = await response.json();
+console.log(d);        
         
       };
+
 
     return (
       <View style={styles.container}>
