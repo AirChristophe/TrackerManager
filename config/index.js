@@ -1,3 +1,3 @@
 export default {
-  COLOR1: "red",
+  COLOR1: "green",
 };
