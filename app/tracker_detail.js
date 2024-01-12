@@ -26,7 +26,7 @@ export default function Page() {
     const response = await fetch(url);
     const d = await response.json();
 
-//console.log(d);
+console.log(d);
 console.log("Id provider : " + d.Tracker.id_provider_tracker);
 
     setData(d);
@@ -52,7 +52,7 @@ console.log("Id provider : " + d.Tracker.id_provider_tracker);
     <View style={styles.container}>
       <Text style={styles.title}>{params?.name}</Text>
         <View style={styles.row}>
-            <Text style={styles.text}>ID Provider</Text>
+            <Text style={styles.text_left}>ID Provider</Text>
                 <View style={styles.right}>
                     <Text style={styles.text}>
                     {data?.Tracker?.id_provider_tracker}
@@ -60,17 +60,21 @@ console.log("Id provider : " + d.Tracker.id_provider_tracker);
                 </View>
         </View>
         <View style={styles.row}>
-            <Text style={styles.text}>Quality</Text>
+            <Text style={styles.text_left}>Quality</Text>
                 <View style={styles.right}>
                     <Text style={styles.text}>
                     {data?.Tracker?.quality}   
-                    <Button style={styles.button} onPress={() => _setQualityTracker('POOR')} title="Poor"></Button>
-                    <Button style={styles.button} onPress={() => _setQualityTracker('GOOD')} title="Good"></Button>
+                    <Pressable style={styles.button} onPress={() => _setQualityTracker('POOR')}>
+                        <Text style={styles.button_text}>Poor</Text>
+                    </Pressable>
+                    <Pressable style={styles.button} onPress={() => _setQualityTracker('GOOD')}>
+                        <Text style={styles.button_text}>Good</Text>
+                    </Pressable>
                     </Text>
                 </View>
         </View>
         <View style={styles.row}>
-            <Text style={styles.text}>SIM Provider</Text>
+            <Text style={styles.text_left}>SIM Provider</Text>
                 <View style={styles.right}>
                     <Text style={styles.text}>
                     {data?.Tracker?.sim_provider}                    
@@ -78,7 +82,7 @@ console.log("Id provider : " + d.Tracker.id_provider_tracker);
                 </View>
         </View>
         <View style={styles.row}>
-            <Text style={styles.text}>SIM Id</Text>
+            <Text style={styles.text_left}>SIM Id</Text>
                 <View style={styles.right}>
                     <Text style={styles.text}>
                     {data?.Tracker?.sim_id}
@@ -86,7 +90,7 @@ console.log("Id provider : " + d.Tracker.id_provider_tracker);
                 </View>
         </View>
         <View style={styles.row}>
-            <Text style={styles.text}>Next event</Text>
+            <Text style={styles.text_left}>Next event</Text>
                 <View style={styles.right}>
                     <Text style={styles.text}>
                     {data?.next_event} 
@@ -94,7 +98,7 @@ console.log("Id provider : " + d.Tracker.id_provider_tracker);
                 </View>
         </View>
         <View style={styles.row}>
-            <Text style={styles.text}>Last event</Text>
+            <Text style={styles.text_left}>Last event</Text>
                 <View style={styles.right}>
                     <Text style={styles.text}>
                     {data?.last_event} 
@@ -143,16 +147,38 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "left",
         justifyContent: "left",
-        flex:0.8
-    },
-    text: {
-        color: '#014786',
-        fontSize: fontPixel(22),
+        flex:0.7,
+        backgroundColor: 'white',
     },
     button: {
-        margin: 5,
-        padding: 5,
-        backgroundColor: "#014786",
-        fontSize: fontPixel(10),
+        alignItems: 'center',
+        justifyContent: 'center',        
+        margin:5,
+        backgroundColor: '#014786',
+        //borderWidth: 1, 
+        borderStyle: "solid", 
+        borderColor: "#FFFFFF",
+      },
+      button_text: {
+        fontSize: fontPixel(21),
+        fontWeight: 'bold',
+        color: '#FFFFFF',
+        padding:5,
+      },
+      text: {
+        fontSize: fontPixel(18),
+        fontWeight: 'bold',
+        color: '#014786',
+        padding:5,
+      },
+
+      text_left: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        flex:0.3,
+        backgroundColor: '#014786',
+        color:"white"
     },
 });
