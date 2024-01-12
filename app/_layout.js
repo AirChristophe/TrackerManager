@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     //width:"100%",
     //height:"5%",
-    marginTop: 40,
+    marginTop: 60,
 
     //borderWidth: 1, 
     //borderStyle: "solid", 

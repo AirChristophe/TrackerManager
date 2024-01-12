@@ -32,9 +32,9 @@ export default function App() {
     router.push({ pathname: "/tracker_detail", params: { name: data } });
   };
 
-  const goToTracker = ({ tracker_name }) => {
-    alert(tracker_name);
-    //router.push({ pathname: '/tracker_detail', params: { name: tracker_name } });
+  const _goToTracker = () => {
+    //alert(tracker_name);
+    router.push({ pathname: '/tracker_detail', params: { name: text } });
   };
 
   if (hasPermission === null) {
@@ -44,9 +44,7 @@ export default function App() {
     return <Text>No access to camera</Text>;
   }
 
-  const _submit = () => {
-    alert(text);
-  };
+
 
   return (
     <View style={styles.container}>
@@ -67,7 +65,7 @@ export default function App() {
         onChangeText={(e) => setText(e)}
         value={text}
       />
-      <Button onPress={_submit} title="ok" color="#841584" />
+      <Button onPress={_goToTracker} title="ok" color="#841584" />
     </View>
   );
 }
