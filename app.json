@@ -18,14 +18,21 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.georacing.geotrackermanager",
-      "buildNumber": "2"
+      "buildNumber": "2",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access camera.",
+        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.georacing.geotrackermanager"
+      "package": "com.georacing.geotrackermanager",
+      "permissions": [
+        "android.permission.CAMERA"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -45,7 +52,6 @@
       ],
       "expo-router"
     ],
-
     "hooks": {
       "postPublish": [
         {
@@ -56,6 +62,12 @@
           }
         }
       ]
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/279b04b9-17f7-481d-896f-65ba5b4abe61"
     }
   }
 }

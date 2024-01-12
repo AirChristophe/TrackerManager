@@ -65,7 +65,7 @@ export default function App() {
         onChangeText={(e) => setText(e)}
         value={text}
       />
-      <Button onPress={_goToTracker} title="ok" color="#841584" />
+      <Button style={styles.button_ok} onPress={_goToTracker} title="OK" />
     </View>
   );
 }
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
 
   scanner: {
     width: 300,
-    height: 350,
+    height: 300,
     margin: 20,
   },
 
@@ -102,11 +102,19 @@ const styles = StyleSheet.create({
     borderColor: "#000000",
     fontSize: fontPixel(25),
     padding: 5,
+    marginBottom: 10,
   },
 
   or: {
     color: "#014786",
     fontSize: fontPixel(25),
     marginBottom: 10,
+  },
+  button_ok: {
+    backgroundColor: "#014786",
+    fontSize: fontPixel(25),
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    padding:5,
   },
 });
