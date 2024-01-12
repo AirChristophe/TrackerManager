@@ -26,6 +26,9 @@ export default function Page() {
         </Link>
         <Link style={styles.link} href="/tracker_scanner">          
           <Text style={styles.item}>Scan tracker</Text>
+        </Link> 
+        <Link style={styles.link} href="/login">          
+          <Text style={styles.item}>Login</Text>
         </Link>     
     </View>
   );
