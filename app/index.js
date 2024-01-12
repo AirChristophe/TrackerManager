@@ -9,7 +9,7 @@ export default function Page() {
       <Text style={styles.title}>Tracker Manager</Text>
       <View style={styles.menu}>        
         <Link style={styles.item} href="/events">Events</Link>
-        <Link style={styles.item} href="/tracker_scanner">Scan one tracker</Link>
+        <Link style={styles.item} href="/tracker_scanner">Scan tracker</Link>
         
       </View>
     </View>
