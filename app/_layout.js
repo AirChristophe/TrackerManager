@@ -2,7 +2,7 @@ import { View, Button,Pressable, StyleSheet, Text,Dimensions,PixelRatio } from "
 import { TabRouter } from "@react-navigation/native";
 import { Navigator, usePathname, Slot, Link,router } from "expo-router";
 import { widthPixel,heightPixel, fontPixel,pixelSizeVertical,pixelSizeHorizontal} from './fontsize';
-console.log("layout");
+import config from "config";
 
 import * as Sentry from 'sentry-expo';
 
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     //borderRadius: 4,
     //elevation: 3,
-    backgroundColor: '#014786',
+    backgroundColor: config.BG_COLOR_MENU,
     borderWidth: 1, 
     borderStyle: "solid", 
     borderColor: "#FFFFFF",

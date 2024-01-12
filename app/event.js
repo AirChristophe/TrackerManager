@@ -9,6 +9,7 @@ import {
   pixelSizeVertical,
   pixelSizeHorizontal,
 } from "./fontsize";
+import config from "config";
 
 export default function Page() {
   const params = useLocalSearchParams();
@@ -89,8 +90,8 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
 
 const styles = StyleSheet.create({
   title: {
-    color: "#014786",
-    fontSize: fontPixel(22),
+    color: config.COLOR_TITLE,
+    fontSize: fontPixel(config.SIZE_TITLE),
   },
 
   text: {

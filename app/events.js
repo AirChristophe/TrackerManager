@@ -8,6 +8,7 @@ import {
   pixelSizeVertical,
   pixelSizeHorizontal,
 } from "./fontsize";
+import config from "config";
 
 export default function Page() {
   const [datas, setDatas] = useState([]);
@@ -53,8 +54,8 @@ export default function Page() {
 
 const styles = StyleSheet.create({
   title: {
-    color: "#014786",
-    fontSize: fontPixel(35),
+    color: config.COLOR_TITLE,
+    fontSize: fontPixel(config.SIZE_TITLE),
     marginTop: 20,
     marginBottom: 20,
   },

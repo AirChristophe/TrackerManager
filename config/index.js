@@ -1,3 +1,7 @@
 export default {
-  COLOR1: "green",
+  COLOR_TITLE: "#014786",
+  SIZE_TITLE: 35,
+
+  BG_COLOR_BUTTON: "#014786",
+  BG_COLOR_MENU: "#173c54",
 };

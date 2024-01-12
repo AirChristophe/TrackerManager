@@ -10,6 +10,7 @@ import {
   pixelSizeVertical,
   pixelSizeHorizontal,
 } from "./fontsize";
+import config from "config";
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -72,8 +73,8 @@ export default function App() {
 
 const styles = StyleSheet.create({
   title: {
-    color: "#014786",
-    fontSize: fontPixel(30),
+    color: config.COLOR_TITLE,
+    fontSize: fontPixel(config.SIZE_TITLE),
   },
 
   container: {

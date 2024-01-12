@@ -15,6 +15,7 @@ import {
   pixelSizeVertical,
   pixelSizeHorizontal,
 } from "./fontsize";
+import config from "config";
 
 export default function Page() {
   const params = useLocalSearchParams();
@@ -114,8 +115,8 @@ console.log("Id provider : " + d.Tracker.id_provider_tracker);
 
 const styles = StyleSheet.create({
   title: {
-    color: "#014786",
-    fontSize: fontPixel(35),
+    color: config.COLOR_TITLE,
+    fontSize: fontPixel(config.SIZE_TITLE),
     marginVertical: 30,
   },
 
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',        
         margin:5,
-        backgroundColor: '#014786',
+        backgroundColor: config.BG_COLOR_BUTTON,
         //borderWidth: 1, 
         borderStyle: "solid", 
         borderColor: "#FFFFFF",
