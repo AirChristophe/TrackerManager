@@ -30,11 +30,12 @@ export default function HomeLayout() {
       <Slot />
     </View>
     */
-    <Navigator style={styles.container} router={TabRouter}>
-      <Header />
-      <Slot />
-      <Footer />
-
+    <Navigator router={TabRouter}>
+      <View style={styles.container}>
+          <Header />
+          <Slot style={styles.slot} />
+          <Footer />
+        </View>
     </Navigator>
   );
 }
@@ -56,9 +57,6 @@ function Header() {
         <Pressable style={styles.button} onPress={goBack}>
           <Text style={styles.text}>BACK</Text>
         </Pressable>
-        <Pressable style={styles.button}>
-          <Text style={styles.text}>V {config.VERSION}</Text>
-        </Pressable>
       </View>
     </View>
   );
@@ -77,50 +75,56 @@ function Footer() {
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    flex:1,
+    //display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    //width:"100%",
-    //height:"100%",
-    margin:50,
-    padding:50,
-    borderWidth: 5, 
-    borderStyle: "solid", 
-    borderColor: "#000000",
-    backgroundColor: "red",
+    width:"95%",
+    height:"100%",
+    margin:5,
+    padding:5,
+    marginTop:40,
+    //borderWidth: 5, 
+    //borderStyle: "solid", 
+    //borderColor: "#000000",
+    //backgroundColor: "red",
     
   },
 
   header: {
-    display: "flex",
+    flex: 2,
     flexDirection: "row",
+    width:"100%",
     //backgroundColor: "#ffff44",
     alignItems: "center",
     justifyContent: "center",
-    //width:"100%",
-    //height:"5%",
-    marginTop: 60,
-
     //borderWidth: 1, 
     //borderStyle: "solid", 
     //borderColor: "#000000",
   },
 
+  slot: {
+    //flex: 10,
+    flexDirection: "column",
+    //backgroundColor: "#ffff44",
+    alignItems: "center",
+    justifyContent: "center",
+    width:"90%",
+  },
+
   footer: {
+    flex: 1,
     display: "flex",
     flexDirection: "row",
     //backgroundColor: "#ffff44",
     alignItems: "center",
     justifyContent: "center",
-    //width:"100%",
-    //height:"5%",
-    
-
-    borderWidth: 1, 
-    borderStyle: "solid", 
-    borderColor: "#000000",
+    width:"100%",
+    marginBottom:40,
+   
+    //borderWidth: 1, 
+    //borderStyle: "solid", 
+    //borderColor: "#000000",
   },
   button: {
     alignItems: 'center',

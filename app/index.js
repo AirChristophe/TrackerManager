@@ -35,30 +35,28 @@ export default function Page() {
 }
 
 const styles = StyleSheet.create({
-  title: {
-    color: config.COLOR_TITLE,
-    fontSize: fontPixel(config.SIZE_TITLE),
-    marginTop: 20,
-    marginBottom: 20,
-  },
-
+  
   container: {
-    display: "flex",
-    //backgroundColor: "#ffff44",
+    flex:12,
+    //backgroundColor: "#888555",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     padding: 0,
     margin: 0,
     width: "100%",
   },
 
+  title: {
+    color: config.COLOR_TITLE,
+    fontSize: fontPixel(config.SIZE_TITLE),
+  },
+
 
   link: {
     padding: 10,
+    paddingLeft: 30,
     margin: 5,
     backgroundColor: "#014786",
-    //color: "#FFFFFF",
-    //fontSize: fontPixel(30),
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 0,
@@ -68,12 +66,9 @@ const styles = StyleSheet.create({
   },
 
   item: {
-    //padding: 10,
-    //margin: 5,
-    paddingLeft: 20,
     backgroundColor: "#014786",
     color: "#FFFFFF",
-    fontSize: fontPixel(30),
+    fontSize: fontPixel(28),
     alignItems: "center",
     justifyContent: "center",
 

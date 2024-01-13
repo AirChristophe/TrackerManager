@@ -114,24 +114,19 @@ console.log("Id provider : " + d.Tracker.id_provider_tracker);
 }
 
 const styles = StyleSheet.create({
-  title: {
-    color: config.COLOR_TITLE,
-    fontSize: fontPixel(config.SIZE_TITLE),
-    marginVertical: 30,
-  },
-
   container: {
-    display: "flex",
-    //flex:1,
-    flexDirection: "column",
-    backgroundColor: "#FFFFFF",
-    //height: "100%",
+    flex:12,
+    //backgroundColor: "#888555",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     padding: 0,
     margin: 0,
     width: "100%",
+  },
 
+  title: {
+    color: config.COLOR_TITLE,
+    fontSize: fontPixel(config.SIZE_TITLE),
   },
 
     row: {

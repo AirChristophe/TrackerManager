@@ -53,25 +53,30 @@ export default function Page() {
 }
 
 const styles = StyleSheet.create({
-  title: {
-    color: config.COLOR_TITLE,
-    fontSize: fontPixel(config.SIZE_TITLE),
-    marginTop: 20,
-    marginBottom: 20,
-  },
+  
 
   container: {
-    display: "flex",
-    //backgroundColor: "#ffff44",
+    flex:12,
+    //backgroundColor: "#888555",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     padding: 0,
     margin: 0,
     width: "100%",
   },
+
+  title: {
+    color: config.COLOR_TITLE,
+    fontSize: fontPixel(config.SIZE_TITLE),
+  },
+
   listing: {
-    width: "95%",
-    height:"60%",
+    //width: "95%",
+    //height:"60%",
+    marginBottom:10,
+    //borderWidth: 1, 
+    //borderStyle: "solid", 
+    //borderColor: config.COLOR_TITLE,
   },
 
   itemRow: {

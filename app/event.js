@@ -89,9 +89,19 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex:10,
+    //backgroundColor: "#888555",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    padding: 0,
+    margin: 0,
+    width: "100%",
+  },
+
   title: {
     color: config.COLOR_TITLE,
-    fontSize: fontPixel(config.SIZE_TITLE),
+    fontSize: 20,
   },
 
   text: {
@@ -99,25 +109,11 @@ const styles = StyleSheet.create({
     fontSize: fontPixel(18),
   },
 
-  container: {
-    display: "flex",
-    //flex:1,
-    flexDirection: "column",
-    backgroundColor: "#FFFFFF",
-    //height: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 0,
-    margin: 0,
-    marginVertical: 40,
-    width: "100%",
-
-  },
-
+  
   scanner: {
     width: 300,
-    height: 400,
-    margin: 20,
+    height: 350,
+    margin: 10,
 
   },
 });

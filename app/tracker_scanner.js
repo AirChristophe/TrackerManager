@@ -72,23 +72,19 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex:12,
+    //backgroundColor: "#888555",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    padding: 0,
+    margin: 0,
+    width: "100%",
+  },
+
   title: {
     color: config.COLOR_TITLE,
     fontSize: fontPixel(config.SIZE_TITLE),
-  },
-
-  container: {
-    display: "flex",
-    //flex:1,
-    flexDirection: "column",
-    backgroundColor: "#FFFFFF",
-    //height: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 0,
-    margin: 0,
-    marginVertical: 40,
-    width: "100%",
   },
 
   scanner: {
