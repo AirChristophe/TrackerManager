@@ -73,7 +73,7 @@ export default function Page() {
 
             <Text style={styles.text_right}>
                     {data?.quality} 
-                    </Text>             
+            </Text>             
                       <Pressable style={styles.button} onPress={() => _setQualityTracker('POOR')}>
                           <Text style={styles.button_text}>Poor</Text>
                       </Pressable>
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
         //alignItems: 'center',
         //justifyContent: 'center', 
      
-        margin:5,
+        marginLeft:5,
         backgroundColor: config.BG_COLOR_BUTTON,
         
         //borderWidth: 1, 

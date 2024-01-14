@@ -14,7 +14,7 @@ export default function Page() {
   const [datas, setDatas] = useState([]);
 
   const _fetchData = async () => {
-    const url = "http://0vh-player.georacing.com/datas/events.json";
+    const url = "https://player.georacing.com/datas/events.json?app=1";
     const response = await fetch(url);
     const d = await response.json();
     const da = d.slice(0, 2);

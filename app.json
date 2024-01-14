@@ -3,7 +3,7 @@
     "name": "Geo Tracker Manager",
     "slug": "geotrackermanager",
     "scheme": "geotrackermanager",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -18,7 +18,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.georacing.geotrackermanager",
-      "buildNumber": "3",
+      "buildNumber": "5",
       "infoPlist": {
         "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access camera.",
         "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
@@ -32,7 +32,9 @@
       "package": "com.georacing.geotrackermanager",
       "permissions": [
         "android.permission.CAMERA"
-      ]
+      ],
+      "versionCode":5
+
     },
     "web": {
       "favicon": "./assets/favicon.png"
