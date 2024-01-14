@@ -5,5 +5,5 @@ export default {
 
   BG_COLOR_BUTTON: "#014786",
   BG_COLOR_MENU: "#173c54",
-  VERSION: "1.01",
+  VERSION: "1.02",
 };
