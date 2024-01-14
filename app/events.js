@@ -17,9 +17,10 @@ export default function Page() {
     const url = "http://0vh-player.georacing.com/datas/events.json";
     const response = await fetch(url);
     const d = await response.json();
+    const da = d.slice(0, 2);
 
     //console.log(d);
-    setDatas(d);
+    setDatas(da);
   };
 
   useEffect(() => {

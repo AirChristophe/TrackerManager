@@ -27,8 +27,8 @@ export default function Page() {
     const response = await fetch(url);
     const d = await response.json();
 
-console.log(d);
-console.log("Id provider : " + d.Tracker.id_provider_tracker);
+//console.log(d);
+//console.log("Id provider : " + d.id_provider_tracker);
 
     setData(d);
   };
@@ -51,12 +51,12 @@ console.log("Id provider : " + d.Tracker.id_provider_tracker);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{params?.name}</Text>
+      <Text style={styles.title}>{data?.name}</Text>
         <View style={styles.row}>
             <Text style={styles.text_left}>ID Provider</Text>
                 <View style={styles.right}>
                     <Text style={styles.text}>
-                    {data?.Tracker?.id_provider_tracker}
+                    {data?.id_provider_tracker}
                     </Text>
                 </View>
         </View>
