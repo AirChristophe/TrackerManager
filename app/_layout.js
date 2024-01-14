@@ -66,7 +66,7 @@ function Footer() {
 
   return (
     <View style={styles.footer}>
-      <Text style={styles.text_footer}>GeoRacing - V {config.VERSION}</Text>
+      <Text style={styles.text_footer}>GeoRacing - V{config.VERSION}</Text>
     </View>
   );
 }
