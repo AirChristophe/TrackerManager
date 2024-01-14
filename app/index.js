@@ -28,7 +28,7 @@ export default function Page() {
           <Text style={styles.item}>Scan tracker</Text>
         </Link> 
         <Link style={styles.link} href="/login">          
-          <Text style={styles.item}>Login</Text>
+          <Text style={styles.item}>TEST</Text>
         </Link>     
     </View>
   );
