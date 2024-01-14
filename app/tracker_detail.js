@@ -52,59 +52,84 @@ export default function Page() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{data?.name}</Text>
+
         <View style={styles.row}>
+          <View style={styles.left}>
             <Text style={styles.text_left}>ID Provider</Text>
-                <View style={styles.right}>
-                    <Text style={styles.text}>
-                    {data?.id_provider_tracker}
-                    </Text>
-                </View>
+          </View>
+          <View style={styles.right}>
+            <Text style={styles.text_right}>
+               {data?.id_provider_tracker} 
+            </Text>
+          </View>
         </View>
+
+
         <View style={styles.row}>
+          <View style={styles.left}>
             <Text style={styles.text_left}>Quality</Text>
-                <View style={styles.right}>
-                    <Text style={styles.text}>
-                    {data?.Tracker?.quality}   
-                    <Pressable style={styles.button} onPress={() => _setQualityTracker('POOR')}>
-                        <Text style={styles.button_text}>Poor</Text>
-                    </Pressable>
-                    <Pressable style={styles.button} onPress={() => _setQualityTracker('GOOD')}>
-                        <Text style={styles.button_text}>Good</Text>
-                    </Pressable>
-                    </Text>
-                </View>
+          </View>
+          <View style={styles.right}>
+
+            <Text style={styles.text_right}>
+                    {data?.quality} 
+                    </Text>             
+                      <Pressable style={styles.button} onPress={() => _setQualityTracker('POOR')}>
+                          <Text style={styles.button_text}>Poor</Text>
+                      </Pressable>
+    
+                      <Pressable style={styles.button} onPress={() => _setQualityTracker('GOOD')}>
+                          <Text style={styles.button_text}>Good</Text>
+                      </Pressable>
+
+            
+          </View>
         </View>
+
+
         <View style={styles.row}>
+          <View style={styles.left}>
             <Text style={styles.text_left}>SIM Provider</Text>
-                <View style={styles.right}>
-                    <Text style={styles.text}>
-                    {data?.Tracker?.sim_provider}                    
-                    </Text>
-                </View>
+          </View>
+          <View style={styles.right}>
+            <Text style={styles.text_right}>
+               {data?.sim_provider} 
+            </Text>
+          </View>
         </View>
+
+
         <View style={styles.row}>
+          <View style={styles.left}>
             <Text style={styles.text_left}>SIM Id</Text>
-                <View style={styles.right}>
-                    <Text style={styles.text}>
-                    {data?.Tracker?.sim_id}
-                    </Text>
-                </View>
+          </View>
+          <View style={styles.right}>
+            <Text style={styles.text_right}>
+               {data?.sim_id} 
+            </Text>
+          </View>
         </View>
+
+
         <View style={styles.row}>
+          <View style={styles.left}>
             <Text style={styles.text_left}>Next event</Text>
-                <View style={styles.right}>
-                    <Text style={styles.text}>
-                    {data?.next_event} 
-                    </Text>
-                </View>
+          </View>
+          <View style={styles.right}>
+            <Text style={styles.text_right}>
+               {data?.next_event} 
+            </Text>
+          </View>
         </View>
         <View style={styles.row}>
+          <View style={styles.left}>
             <Text style={styles.text_left}>Last event</Text>
-                <View style={styles.right}>
-                    <Text style={styles.text}>
-                    {data?.last_event} 
-                    </Text>
-                </View>
+          </View>
+          <View style={styles.right}>
+            <Text style={styles.text_right}>
+               {data?.last_event} 
+            </Text>
+          </View>
         </View>
 
         
@@ -133,11 +158,27 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
+        alignItems: "center",
         padding: 5,
         borderBottomWidth: 1,
         borderBottomColor: "#01478650",
-        width:"100%"
+        width:"100%",
+        //height:"10%",
+
+        //borderWidth: 1,
+        //borderStyle: "solid",
+        //borderColor: "#000000",
     },
+
+    left: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      flex:0.3,
+      backgroundColor: '#014786',
+     height:"100%"
+  },
     right: {
         display: "flex",
         flexDirection: "row",
@@ -145,15 +186,19 @@ const styles = StyleSheet.create({
         justifyContent: "left",
         flex:0.7,
         backgroundColor: 'white',
+        paddingLeft:10
     },
     button: {
-        alignItems: 'center',
-        justifyContent: 'center',        
+      //flexDirection: "row",
+        //alignItems: 'center',
+        //justifyContent: 'center', 
+     
         margin:5,
         backgroundColor: config.BG_COLOR_BUTTON,
+        
         //borderWidth: 1, 
-        borderStyle: "solid", 
-        borderColor: "#FFFFFF",
+        //borderStyle: "solid", 
+        //borderColor: "#FF0000",
       },
       button_text: {
         fontSize: fontPixel(21),
@@ -161,7 +206,7 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         padding:5,
       },
-      text: {
+      text_right: {
         fontSize: fontPixel(18),
         fontWeight: 'bold',
         color: '#014786',
@@ -169,12 +214,16 @@ const styles = StyleSheet.create({
       },
 
       text_left: {
-        display: "flex",
-        flexDirection: "row",
+        //display: "flex",
+        //flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        flex:0.3,
-        backgroundColor: '#014786',
-        color:"white"
+       
+        color:"white",
+        //height:"100%",
+
+        //borderWidth: 1,
+        //borderStyle: "solid",
+        //borderColor: "#FF0000",
     },
 });
