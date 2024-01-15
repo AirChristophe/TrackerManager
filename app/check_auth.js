@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 
-  export function checkAuth() {
+  export function checkAuth() {        
 //console.log("checkAuth");
         fetch("https://splanner.georacing.com/users/app_geotraker_management_login",
         { 
@@ -16,6 +16,11 @@ import { router } from "expo-router";
 //console.log(data); 
                         
             if (data.state != 1)
+            {
+                router.push("/login");
+            }
+            // Test survariable globale mise a jour apres un login
+            if (global.user_id === undefined)
             {
                 router.push("/login");
             }

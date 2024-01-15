@@ -7,15 +7,16 @@ import {
   Dimensions,
   PixelRatio,
 } from "react-native";
-import { Link } from "expo-router";
+import { Link,router } from "expo-router";
 import { fontPixel} from "./fontsize";
 import config from "config";
 import { checkAuth } from "./check_auth";
 
 export default function Page() {
 
-  useEffect(() => {
+  useEffect(() => {    
     checkAuth();
+    
   }, []);
 
   return (

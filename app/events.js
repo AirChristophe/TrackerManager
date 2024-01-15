@@ -14,7 +14,7 @@ export default function Page() {
   const _fetchData = async () => {
     //const url = "https://player.georacing.com/datas/events.json?app=1";
     // TODO a remplacer par variable globales mis a jor apres login
-//console.log("events user_id :" + user_id);    
+//console.log("events user_id :" + global.user_id);    
     const url = "https://splanner.georacing.com/events/getEventsByUser/" + global.user_id + "/" + global.user_type_id;    
     const response = await fetch(url);
     const d = await response.json();

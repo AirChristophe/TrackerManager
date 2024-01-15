@@ -31,12 +31,29 @@ import {
       _fetchData();
     }, []);
 
+    const _showMessage = async (message) => {
+      setMsg(message);
+      setisMessageVisible(true);
+      setTimeout(() => {
+        setisMessageVisible(false);
+      }, 2000);
+    };
+
 
     const _login = async () => {
 
           //const url = "https://player.georacing.com/users/logout";
           //const responsevv = await fetch(url);
-
+          if (login == "")
+          {
+               _showMessage("Login is required!");
+              return;
+          }
+          if (passwd == "")
+          {
+               _showMessage("Passwd is required!");
+              return;
+          }
           fetch("https://splanner.georacing.com/users/app_geotraker_management_login",
           { method: 'POST',
             headers: new Headers({
@@ -59,11 +76,7 @@ import {
                 // Sinon on affiche le message
                 else
                 {
-                  setMsg(data.message);
-                  setisMessageVisible(true);
-                  setTimeout(() => {
-                    setisMessageVisible(false);
-                 }, 2000);
+                  _showMessage(data.message);
                 }
             }) 
             .catch((error) => { 
