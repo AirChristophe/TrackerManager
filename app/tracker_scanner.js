@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button, TextInput } from "react-native";
+import { Text, View, StyleSheet, Button, TextInput,Pressable } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { router } from "expo-router";
 import {
@@ -66,7 +66,9 @@ export default function App() {
         onChangeText={(e) => setText(e)}
         value={text}
       />
-      <Button style={styles.button_ok} onPress={_goToTracker} title="OK" />
+      <Pressable style={styles.button} onPress={_goToTracker}>
+            <Text style={styles.button_text}>OK</Text>
+        </Pressable>
     </View>
   );
 }
@@ -107,11 +109,16 @@ const styles = StyleSheet.create({
     fontSize: fontPixel(25),
     marginBottom: 10,
   },
-  button_ok: {
-    backgroundColor: "#014786",
-    fontSize: fontPixel(25),
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    padding:5,
+
+  button: {
+    backgroundColor:config.COLOR_BUTTON,
   },
+
+  button_text: {
+    color:"#FFFFFF",
+    fontSize: 22,
+    padding:7
+
+  },
+
 });

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet, FlatList, Text, Button,Pressable } from "react-native";
 import { Link, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { BarCodeScanner } from "expo-barcode-scanner";
+
 import {
   widthPixel,
   heightPixel,
@@ -13,9 +14,10 @@ import config from "config";
 
 export default function Page() {
   const params = useLocalSearchParams();
-  console.log(params);
+//console.log(params);
 
   const [datas, setDatas] = useState([]);
+
 
   const _affectTracker = async (tracker_name) => {
 console.log("_affectTracker : tracker_name : " + tracker_name);    
@@ -23,6 +25,10 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
     const response = await fetch(url);
     const d = await response.json();
     console.log("_affectTracker : params.id : " + params.id);  
+    //alert(d.message);
+    setMsg(d.message);
+    _showMessage(d.message);
+
     _getTrackersOfEvent(params.id);
   };
 
@@ -31,8 +37,8 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
     const response = await fetch(url);
     const d = await response.json();
 
-    console.log(d);
-    console.log("length : " + d.length);
+    //console.log(d);
+    //console.log("length : " + d.length);
     setDatas(d);
   };
 
@@ -59,11 +65,29 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
     setScanned(true);
     //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
 //console.log("handleBarCodeScanned data : " + data);
-    _affectTracker(data);
-
-    
-    
+    _affectTracker(data);        
   };
+
+
+  const handleButtonClick = () => {
+    setIsAlertVisible(true);
+
+        setTimeout(() => {
+            setIsAlertVisible(false);
+        }, 3000);
+}
+
+  const [ isAlertVisible, setIsAlertVisible ] = useState(false);
+  const [msg, setMsg] = useState('');
+  const _showMessage = async () => {
+
+    setIsAlertVisible(true);
+    setTimeout(() => {
+                 setIsAlertVisible(false);
+              }, 2000);
+  }
+
+
 
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;
@@ -80,8 +104,12 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
         style={styles.scanner}  
       />
       {scanned && (
-        <Button style={{ height: 80 }} title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
+        <Pressable style={styles.button} onPress={() => setScanned(false)}>
+            <Text style={styles.button_text}>Tap to Scan Again</Text>
+        </Pressable>
       )}
+      {isAlertVisible && <Text style={styles.message}>{msg}</Text>}
+
        <Text style={styles.text}>Nb trackers in Event</Text>
        <Text style={styles.text}>{datas.length}</Text>
     </View>
@@ -103,6 +131,23 @@ const styles = StyleSheet.create({
     color: config.COLOR_TITLE,
     fontSize: 20,
   },
+
+  message: {
+    color: "#FF0000",
+    fontSize: 20,
+  },
+
+  button: {
+    backgroundColor:config.COLOR_BUTTON,
+  },
+
+  button_text: {
+    color:"#FFFFFF",
+    fontSize: 16,
+    padding:5
+
+  },
+
 
   text: {
     color: "#000000",
