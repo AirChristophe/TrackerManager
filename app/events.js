@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, router, useFocusEffect } from "expo-router";
 import { StyleSheet, View, FlatList, Text, Pressable } from "react-native";
-import {
-  widthPixel,
-  heightPixel,
-  fontPixel,
-  pixelSizeVertical,
-  pixelSizeHorizontal,
-} from "./fontsize";
+import { fontPixel} from "./fontsize";
 import config from "config";
 
 export default function Page() {

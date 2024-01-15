@@ -3,13 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button, TextInput,Pressable } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { router } from "expo-router";
-import {
-  widthPixel,
-  heightPixel,
-  fontPixel,
-  pixelSizeVertical,
-  pixelSizeHorizontal,
-} from "./fontsize";
+import { fontPixel} from "./fontsize";
 import config from "config";
 
 export default function App() {
@@ -112,6 +106,7 @@ const styles = StyleSheet.create({
 
   button: {
     backgroundColor:config.COLOR_BUTTON,
+    borderRadius:config.BUTTON_BORDER_RADIUS
   },
 
   button_text: {

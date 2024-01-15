@@ -7,13 +7,7 @@ import {
   PixelRatio,
 } from "react-native";
 import { Link } from "expo-router";
-import {
-  widthPixel,
-  heightPixel,
-  fontPixel,
-  pixelSizeVertical,
-  pixelSizeHorizontal,
-} from "./fontsize";
+import { fontPixel} from "./fontsize";
 import config from "config";
 
 export default function Page() {

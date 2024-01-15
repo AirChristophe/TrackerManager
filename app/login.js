@@ -7,44 +7,65 @@ import {
     TextInput
   } from "react-native";
   import React, { useState, useEffect } from "react";
-  import { Link } from "expo-router";
-  import {
-    widthPixel,
-    heightPixel,
-    fontPixel,
-    pixelSizeVertical,
-    pixelSizeHorizontal,
-  } from "./fontsize";
+  import { router } from "expo-router";
+  import { fontPixel} from "./fontsize";
   import config from "config";
   
   export default function Page() {
 
     const [login, setLogin] = useState("");
     const [passwd, setPasswd] = useState("");
+    const [msg, setMsg] = useState("");
+    const [ isMessageVisible, setisMessageVisible ] = useState(false);
+
+
+    // test a virer
+    
+    const _fetchData = async () => {
+      const url = "https://splanner.georacing.com/users/logout";
+      const response = await fetch(url);
+
+    };
+  
+    useEffect(() => {
+      _fetchData();
+    }, []);
+
+
+
 
     const _login = async () => {
-        
 
-        const response = await fetch('https://splanner.georacing.com/users/app_geotraker_management_login/', {
-            method: 'POST',
-            //headers: {
-            //    Accept: 'application/json',
-            //    'Content-Type': 'application/json',
-            //},
-            body: JSON.stringify({
-                "data[User][email]": login,
-                "data[User][password]": passwd,
+          //const url = "https://player.georacing.com/users/logout";
+          //const responsevv = await fetch(url);
+
+          fetch("https://splanner.georacing.com/users/app_geotraker_management_login",
+          { method: 'POST',
+            headers: new Headers({
+              'Content-Type': 'application/x-www-form-urlencoded',
             }),
-            });
+            body: "login=" + login + "&password=" + passwd
 
-            //const response = await fetch('https://splanner.georacing.com/users/app_geotraker_management_login');
-            //const response = await fetch("http://0vh-player.georacing.com/datas/events.json");
-console.log("---------------LLL -----");             
-//console.log(response.text()); 
-//alert(response.text());
-        const d = await response.json();
-console.log(d);        
-        
+          }) 
+            .then((response) => response.json()) 
+            .then((data) => { 
+                //setData(JSON.stringify(data)); 
+                console.log(data); 
+                           
+                if (data.state == 1)
+                {
+                    router.push("/");
+                }
+                else
+                {
+                  setMsg(data.message);
+                  setisMessageVisible(true);
+                }
+            }) 
+            .catch((error) => { 
+                // Handle any errors that occur 
+                console.error("error : " + error); 
+            }); 
       };
 
 
@@ -65,7 +86,12 @@ console.log(d);
             onChangeText={(e) => setPasswd(e)}
             value={passwd}
         />
-        <Button style={styles.button_ok} onPress={_login} title="LOGIN" />
+
+        <Pressable style={styles.button} onPress={() => _login()}>
+            <Text style={styles.button_text}>LOGIN</Text>
+        </Pressable>
+
+        {isMessageVisible && <Text style={styles.message}>{msg}</Text>}
             
       </View>
     );
@@ -101,12 +127,20 @@ console.log(d);
       },
     
 
-      button_ok: {
-        backgroundColor: "#014786",
-        fontSize: fontPixel(25),
-        fontWeight: 'bold',
-        color: '#FFFFFF',
-        padding:5,
+      button: {
+        backgroundColor:config.COLOR_BUTTON,
+        borderRadius:config.BUTTON_BORDER_RADIUS
+      },
+    
+      button_text: {
+        color:"#FFFFFF",
+        fontSize: 22,
+        padding:8
+    
+      },
+      message: {
+        color: "#FF0000",
+        fontSize: 20,
       },
   });
   
