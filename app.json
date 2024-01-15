@@ -18,7 +18,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.georacing.geotrackermanager",
-      "buildNumber": "5",
+      "buildNumber": "6",
       "infoPlist": {
         "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access camera.",
         "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
@@ -33,7 +33,7 @@
       "permissions": [
         "android.permission.CAMERA"
       ],
-      "versionCode":5
+      "versionCode":6
 
     },
     "web": {

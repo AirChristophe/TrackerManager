@@ -10,6 +10,7 @@ import {
 import { Link, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { fontPixel} from "./fontsize";
 import config from "config";
+import { checkAuth } from "./check_auth";
 
 export default function Page() {
   const params = useLocalSearchParams();
@@ -40,6 +41,7 @@ export default function Page() {
   
 
   useEffect(() => {
+    checkAuth();
     _fetchData();
   }, []);
 

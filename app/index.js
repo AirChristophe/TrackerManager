@@ -1,3 +1,4 @@
+import React, {  useEffect } from "react";
 import {
   View,
   Pressable,
@@ -9,8 +10,14 @@ import {
 import { Link } from "expo-router";
 import { fontPixel} from "./fontsize";
 import config from "config";
+import { checkAuth } from "./check_auth";
 
 export default function Page() {
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tracker Manager</Text>
@@ -20,9 +27,6 @@ export default function Page() {
         </Link>
         <Link style={styles.link} href="/tracker_scanner">          
           <Text style={styles.item}>Scan tracker</Text>
-        </Link> 
-        <Link style={styles.link} href="/login">          
-          <Text style={styles.item}>TEST 1</Text>
         </Link>     
     </View>
   );

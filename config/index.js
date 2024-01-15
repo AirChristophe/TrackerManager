@@ -7,5 +7,5 @@ export default {
 
   BG_COLOR_BUTTON: "#014786",
   BG_COLOR_MENU: "#173c54",
-  VERSION: "1.03",
+  VERSION: "1.04",
 };

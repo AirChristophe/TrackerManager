@@ -22,6 +22,14 @@ const goHome = ({  }) => {
   router.push('/');
 };
 
+const logout = async () => {
+  console.log("logout");
+  const url = "https://splanner.georacing.com/users/logout";
+  const response = await fetch(url);
+  router.push("/login");
+};
+
+
 export default function HomeLayout() {
   return (
     /*
@@ -56,6 +64,9 @@ function Header() {
         </Pressable>
         <Pressable style={styles.button} onPress={goBack}>
           <Text style={styles.text}>BACK</Text>
+        </Pressable>
+        <Pressable style={styles.button} onPress={logout}>
+          <Text style={styles.text}>LOGOUT</Text>
         </Pressable>
       </View>
     </View>

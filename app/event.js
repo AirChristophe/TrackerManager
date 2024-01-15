@@ -5,6 +5,7 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 
 import { fontPixel} from "./fontsize";
 import config from "config";
+import { checkAuth } from "./check_auth";
 
 export default function Page() {
   const params = useLocalSearchParams();
@@ -37,6 +38,7 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
   };
 
   useEffect(() => {
+    checkAuth();
     _getTrackersOfEvent(params.id);
   }, []);
 

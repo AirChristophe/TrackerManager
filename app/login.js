@@ -32,8 +32,6 @@ import {
     }, []);
 
 
-
-
     const _login = async () => {
 
           //const url = "https://player.georacing.com/users/logout";
@@ -50,12 +48,15 @@ import {
             .then((response) => response.json()) 
             .then((data) => { 
                 //setData(JSON.stringify(data)); 
-                console.log(data); 
-                           
+console.log(data); 
+                // Si bon login, on redirige vers l'accueil           
                 if (data.state == 1)
                 {
+                    global.user_id = data.user_id;
+                    global.user_type_id = data.user_type_id;
                     router.push("/");
                 }
+                // Sinon on affiche le message
                 else
                 {
                   setMsg(data.message);
@@ -112,35 +113,29 @@ import {
       color: config.COLOR_TITLE,
       fontSize: fontPixel(config.SIZE_TITLE),
     },
-  
-
-
-
     text_input: {
-        borderWidth: 1,
-        borderStyle: "solid",
-        borderColor: "#000000",
-        fontSize: fontPixel(25),
-        padding: 5,
-        marginBottom: 10,
-        width:"80%"
-      },
+      borderWidth: 1,
+      borderStyle: "solid",
+      borderColor: "#000000",
+      fontSize: fontPixel(25),
+      padding: 5,
+      marginBottom: 10,
+      width:"80%"
+    },
+    button: {
+      backgroundColor:config.COLOR_BUTTON,
+      borderRadius:config.BUTTON_BORDER_RADIUS
+    },
     
-
-      button: {
-        backgroundColor:config.COLOR_BUTTON,
-        borderRadius:config.BUTTON_BORDER_RADIUS
-      },
-    
-      button_text: {
-        color:"#FFFFFF",
-        fontSize: 22,
-        padding:8
-    
-      },
-      message: {
-        color: "#FF0000",
-        fontSize: 20,
-      },
+    button_text: {
+      color:"#FFFFFF",
+      fontSize: 22,
+      padding:8
+  
+    },
+    message: {
+      color: "#FF0000",
+      fontSize: 20,
+    },
   });
   

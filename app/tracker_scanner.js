@@ -5,6 +5,7 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { router } from "expo-router";
 import { fontPixel} from "./fontsize";
 import config from "config";
+import { checkAuth } from "./check_auth";
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -12,6 +13,8 @@ export default function App() {
   const [text, setText] = useState("");
 
   useEffect(() => {
+    checkAuth();
+    
     const getBarCodeScannerPermissions = async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === "granted");
