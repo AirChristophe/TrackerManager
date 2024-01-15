@@ -44,6 +44,7 @@ console.log(d);
               }}
             >
               <View style={{ flexDirection: 'row' }}>
+                <Text style={styles.itemDate}>{item.E.start_time} - </Text>
                 <Text style={styles.itemText}>{item.E.name}</Text>
               </View>
             </Link>
@@ -79,18 +80,23 @@ const styles = StyleSheet.create({
     //borderWidth: 1, 
     //borderStyle: "solid", 
     //borderColor: config.COLOR_TITLE,
-    width: "90%",
+    width: "100%",
   },
 
   itemRow: {
     padding: 10,
     margin: 5,
     backgroundColor: "#014786",
-    alignItems: "center",
+    alignItems: "left",
     justifyContent: "center",
     //width: "100%",
     //flexShrink: 1
     
+  },
+  itemDate: {
+    //backgroundColor: "#111111",
+    color: "#FFFFFF",
+    fontSize: fontPixel(18),
   },
   itemText: {
     color: "#FFFFFF",

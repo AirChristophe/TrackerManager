@@ -32,8 +32,8 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
     const response = await fetch(url);
     const d = await response.json();
 
-    //console.log(d);
-    //console.log("length : " + d.length);
+  console.log(d);
+  console.log("length : " + d.length);
     setDatas(d);
   };
 
@@ -46,6 +46,7 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
 
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
@@ -65,13 +66,6 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
   };
 
 
-  const handleButtonClick = () => {
-    setIsAlertVisible(true);
-
-        setTimeout(() => {
-            setIsAlertVisible(false);
-        }, 3000);
-}
 
   const [ isAlertVisible, setIsAlertVisible ] = useState(false);
   const [msg, setMsg] = useState('');
@@ -106,8 +100,19 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
       )}
       {isAlertVisible && <Text style={styles.message}>{msg}</Text>}
 
-       <Text style={styles.text}>Nb trackers in Event</Text>
-       <Text style={styles.text}>{datas.length}</Text>
+       <Text style={styles.text}>Nb trackers in Event : {datas.length}</Text>
+
+       <FlatList style={styles.listing}
+        keyExtractor={(item) => item.id}
+        data={datas}
+        renderItem={({ item }) => (
+          <View style={styles.itemRow}>
+              <View style={{ flexDirection: 'row' }}>
+                <Text style={styles.itemText}>{item.name}</Text>
+              </View>
+          </View>
+        )}
+      />
     </View>
   );
 }
@@ -133,6 +138,30 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 
+  listing: {
+    //marginBottom:10,
+    //marginLeft:"5%",
+    //alignItems: "center",
+    //justifyContent: "center",
+    width: "100%",
+    //height: 50,
+  },
+  itemRow: {
+    //padding: 10,
+    //margin: 5,
+    //color: "#014786",
+    alignItems: "center",
+    justifyContent: "center",
+    //width: "100%",
+    //flexShrink: 1
+    
+  },
+
+  itemText: {
+    color: "#014786",
+    fontSize: fontPixel(20),
+  },
+
   button: {
     backgroundColor:config.COLOR_BUTTON,
     borderRadius:config.BUTTON_BORDER_RADIUS
@@ -154,7 +183,7 @@ const styles = StyleSheet.create({
   
   scanner: {
     width: 300,
-    height: 350,
+    height: 300,
     margin: 10,
 
   },
