@@ -48,7 +48,7 @@ import {
             .then((response) => response.json()) 
             .then((data) => { 
                 //setData(JSON.stringify(data)); 
-console.log(data); 
+//console.log(data); 
                 // Si bon login, on redirige vers l'accueil           
                 if (data.state == 1)
                 {
@@ -61,6 +61,9 @@ console.log(data);
                 {
                   setMsg(data.message);
                   setisMessageVisible(true);
+                  setTimeout(() => {
+                    setisMessageVisible(false);
+                 }, 2000);
                 }
             }) 
             .catch((error) => { 
