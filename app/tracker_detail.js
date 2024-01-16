@@ -70,12 +70,22 @@ export default function Page() {
             <Text style={styles.text_right}>
                     {data?.quality} 
             </Text>             
-                      <Pressable style={styles.button} onPress={() => _setQualityTracker('POOR')}>
-                          <Text style={styles.button_text}>Poor</Text>
-                      </Pressable>
+                      
     
                       <Pressable style={styles.button} onPress={() => _setQualityTracker('GOOD')}>
                           <Text style={styles.button_text}>Good</Text>
+                      </Pressable>
+
+                      <Pressable style={styles.button} onPress={() => _setQualityTracker('POOR')}>
+                          <Text style={styles.button_text}>Poor</Text>
+                      </Pressable>
+
+                      <Pressable style={styles.button} onPress={() => _setQualityTracker('BROKEN')}>
+                          <Text style={styles.button_text}>Broken</Text>
+                      </Pressable>
+
+                      <Pressable style={styles.button} onPress={() => _setQualityTracker('2TEST')}>
+                          <Text style={styles.button_text}>Test</Text>
                       </Pressable>
 
             
@@ -197,10 +207,10 @@ const styles = StyleSheet.create({
         //borderColor: "#FF0000",
       },
       button_text: {
-        fontSize: fontPixel(21),
+        fontSize: fontPixel(18),
         fontWeight: 'bold',
         color: '#FFFFFF',
-        padding:5,
+        padding:4,
       },
       text_right: {
         fontSize: fontPixel(18),
