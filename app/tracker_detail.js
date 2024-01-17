@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Button,
-  StyleSheet,
-  FlatList,
-  Text,
-  Pressable,
-} from "react-native";
+import {View,TextInput,StyleSheet,FlatList,Text,Pressable,} from "react-native";
 import { Dropdown } from 'react-native-element-dropdown';
 import { Link, useFocusEffect, useLocalSearchParams } from "expo-router";
+import Moment from 'moment';
 import { fontPixel} from "./fontsize";
 import config from "config";
 import { checkAuth } from "./check_auth";
@@ -19,7 +13,24 @@ export default function Page() {
   const [loaded, setLoaded] = useState(false);
   const [msg, setMsg] = useState("");
   const [ isMessageVisible, setisMessageVisible ] = useState(false);
+  const [ isShowMessageVisible, setisShowMessageVisible ] = useState(false);
 
+
+  const [addMessage, setAddMessage] = useState("");
+
+
+
+  const _showHideMessage =  () => {
+   if (isShowMessageVisible)
+    {
+      setisShowMessageVisible(false);
+    }
+    else
+    {
+      setisShowMessageVisible(true);
+    }
+  };
+  
   
   const _showMessage = async (message) => {
     setMsg(message);
@@ -45,33 +56,106 @@ console.log(d.sim_states);
   };
 
   const _setQualityTracker = async (quality) => {
-    const url =
-      "https://splanner.georacing.com/trackers/setTrackerValueByName/" + params.name + "/quality/" + quality;
-    const response = await fetch(url);
-    const d = await response.json();
+    //const url =
+    //  "https://splanner.georacing.com/trackers/setTrackerValueByName/" + params.name + "/quality/" + quality;
+    //const response = await fetch(url);
+    //const d = await response.json();
 
-    _fetchData();
+    fetch("https://splanner.georacing.com/trackers/setTrackerValueById",
+    { method: 'POST',
+      headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded',}),
+      body: "tracker_id=" + data.id + "&field=quality&value=" + quality
+    }) 
+    .then((response) => response.json()) 
+    .then((data) => { 
+        _fetchData();
+    }) 
+    .catch((error) => {  
+          console.error("error : " + error); 
+          _showMessage(error);          
+    }); 
+
+    
   };
+
+  const _addTrackerMessage = async () => {
+//console.log("addMessage : " + params.name);    
+//console.log("addMessage : " + data.id); 
+    fetch("https://splanner.georacing.com/trackers/addTrackerManagementMessage",
+    { method: 'POST',
+      headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded',}),
+      body: "tracker_id=" + data.id + "&message=" + addMessage
+    }) 
+    .then((response) => response.json()) 
+    .then((data) => { 
+//alert(data);
+        _fetchData();
+        setisShowMessageVisible(false);
+    }) 
+    .catch((error) => {  
+          console.error("error : " + error); 
+          _showMessage(error);          
+    }); 
+
+  };
+
+  const _delTrackerMessage = async (tracker_management_message_id) => {
+//alert(tracker_management_message_id);    
+    fetch("https://splanner.georacing.com/trackers/delTrackerManagementMessage",
+    { method: 'POST',
+      headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded',}),
+      body: "tracker_management_message_id=" + tracker_management_message_id 
+    }) 
+    .then((response) => response.json()) 
+    .then((data) => { 
+        _fetchData();
+        setisShowMessageVisible(false);
+    }) 
+    .catch((error) => {  
+          console.error("error : " + error); 
+          _showMessage(error);          
+    }); 
+
+  };
+
+
+  
 
   const _changeSimState = async (value) => { 
     setSimStateValue(value);
 
-    const url =
-      "https://splanner.georacing.com/trackers/setTrackerValueByName/" + params.name + "/sim_state_id/" + value;
-    const response = await fetch(url);
-    const d = await response.json();
-    _showMessage("Tracker updated");
+    fetch("https://splanner.georacing.com/trackers/setTrackerValueById",
+    { method: 'POST',
+      headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded',}),
+      body: "tracker_id=" + data.id + "&field=sim_state_id&value=" + value
+    }) 
+    .then((response) => response.json()) 
+    .then((data) => { 
+          _showMessage("Tracker updated");
+    }) 
+    .catch((error) => {  
+          console.error("error : " + error); 
+          _showMessage(error);          
+    }); 
   }
-
 
   const _changeSimPlan = async (value) => { 
     setSimPlanValue(value);
 
-    const url =
-      "https://splanner.georacing.com/trackers/setTrackerValueByName/" + params.name + "/sim_plan_id/" + value;
-    const response = await fetch(url);
-    const d = await response.json();
-    _showMessage("Tracker updated");
+    fetch("https://splanner.georacing.com/trackers/setTrackerValueById",
+    { method: 'POST',
+      headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded',}),
+      body: "tracker_id=" + data.id + "&field=sim_plan_id&value=" + value
+    }) 
+    .then((response) => response.json()) 
+    .then((data) => { 
+          _showMessage("Tracker updated");
+    }) 
+    .catch((error) => {  
+          console.error("error : " + error); 
+          _showMessage(error);          
+    }); 
+
   }
 
 
@@ -248,6 +332,46 @@ console.log(d.sim_states);
           </View>
         </View>
 
+
+        <View style={{ }}>
+          <Text style={styles.title_message}>MESSAGES</Text>
+        </View>
+        <Pressable style={styles.button} onPress={() => _showHideMessage()}>
+            <Text style={styles.button_text}>ADD</Text>
+        </Pressable>
+        {isShowMessageVisible && (        
+          <TextInput
+              style={styles.text_input}
+              placeholder={"Message"}
+              onChangeText={(e) => setAddMessage(e)}
+              //value={login}
+          />
+
+         
+        )}
+        {isShowMessageVisible && ( 
+        <Pressable style={styles.button} onPress={() => _addTrackerMessage()}>
+            <Text style={styles.button_text}>OK</Text>
+          </Pressable>
+         )}
+
+        <FlatList style={styles.listing}
+        keyExtractor={(item) => item.tracker_management_messages.id}
+        data={data.tracker_management_messages}
+        renderItem={({ item }) => (
+          <View style={styles.itemRow}>
+              <View style={{ flexDirection: 'row' }}>
+                <Text style={styles.itemDate}>{Moment(item.tracker_management_messages.created).format('YYYY-MM-DD')} </Text>
+                <Text style={styles.itemText}>{item.tracker_management_messages.message}</Text>
+                <Pressable style={styles.button_del} onPress={() => _delTrackerMessage(item.tracker_management_messages.id)}>
+                  <Text style={styles.button_del_text}>DEL</Text>
+                </Pressable>
+              </View>
+
+          </View>
+        )}
+      />
+
         
       
     </View>
@@ -347,6 +471,11 @@ const styles = StyleSheet.create({
       fontSize: 20,
     },
 
+    title_message: {
+      color: config.COLOR_TITLE,
+    fontSize: fontPixel(25),
+    },
+
 
 
 
@@ -384,4 +513,56 @@ const styles = StyleSheet.create({
       height: 40,
       fontSize: 16,
     },
+
+
+
+    listing: {
+      marginTop:5,
+      width: "100%",
+    },
+  
+    itemRow: {
+      padding: 0,
+      //margin: 5,
+      //backgroundColor: "#014786",
+      alignItems: "left",
+      justifyContent: "center",
+
+      
+    },
+    itemDate: {
+      flex:2,
+      color: "#014786",
+      fontSize: fontPixel(18),
+    },
+    itemText: {
+      flex:5,
+      color: "#014786",
+      fontSize: fontPixel(22),
+      flexShrink: 1
+    },
+
+    text_input: {
+
+      borderWidth: 1,
+      borderStyle: "solid",
+      borderColor: "#000000",
+      fontSize: fontPixel(25),
+      padding: 5,
+      marginBottom: 10,
+      width:"80%",
+      height:30
+    },
+
+    button_del: {
+        margin:1,
+        marginLeft:5,
+        backgroundColor: "#b52316",        
+      },
+      button_del_text: {
+        fontSize: fontPixel(15),
+        fontWeight: 'bold',
+        color: '#FFFFFF',
+        margin:4,
+      },
 });
