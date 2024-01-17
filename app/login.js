@@ -36,7 +36,7 @@ import {
       setisMessageVisible(true);
       setTimeout(() => {
         setisMessageVisible(false);
-      }, 2000);
+      }, config.DURATION_SHOW_MESSAGE);
     };
 
 

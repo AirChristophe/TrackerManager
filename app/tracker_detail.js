@@ -7,6 +7,7 @@ import {
   Text,
   Pressable,
 } from "react-native";
+import { Dropdown } from 'react-native-element-dropdown';
 import { Link, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { fontPixel} from "./fontsize";
 import config from "config";
@@ -15,27 +16,63 @@ import { checkAuth } from "./check_auth";
 export default function Page() {
   const params = useLocalSearchParams();
   const [data, setData] = useState({});
+  const [loaded, setLoaded] = useState(false);
+  const [msg, setMsg] = useState("");
+  const [ isMessageVisible, setisMessageVisible ] = useState(false);
+
+  
+  const _showMessage = async (message) => {
+    setMsg(message);
+    setisMessageVisible(true);
+    setTimeout(() => {
+      setisMessageVisible(false);
+    }, config.DURATION_SHOW_MESSAGE);
+  };
 
   const _fetchData = async () => {
     const url =
       "https://splanner.georacing.com/trackers/getTrackerDetailByName/" + params.name;
     const response = await fetch(url);
     const d = await response.json();
-
-//console.log(d);
+console.log("--------");
+console.log(d);
 //console.log("Id provider : " + d.id_provider_tracker);
-
+console.log(d.sim_states);
+    setSimStateValue(d.sim_state_id)
+    setSimPlanValue(d.sim_plan_id)
     setData(d);
+    setLoaded(true);
   };
 
   const _setQualityTracker = async (quality) => {
     const url =
-      "https://splanner.georacing.com/trackers/setTrackerQualityByName/" + params.name + "/" + quality;
+      "https://splanner.georacing.com/trackers/setTrackerValueByName/" + params.name + "/quality/" + quality;
     const response = await fetch(url);
     const d = await response.json();
 
     _fetchData();
   };
+
+  const _changeSimState = async (value) => { 
+    setSimStateValue(value);
+
+    const url =
+      "https://splanner.georacing.com/trackers/setTrackerValueByName/" + params.name + "/sim_state_id/" + value;
+    const response = await fetch(url);
+    const d = await response.json();
+    _showMessage("Tracker updated");
+  }
+
+
+  const _changeSimPlan = async (value) => { 
+    setSimPlanValue(value);
+
+    const url =
+      "https://splanner.georacing.com/trackers/setTrackerValueByName/" + params.name + "/sim_plan_id/" + value;
+    const response = await fetch(url);
+    const d = await response.json();
+    _showMessage("Tracker updated");
+  }
 
 
   
@@ -45,13 +82,25 @@ export default function Page() {
     _fetchData();
   }, []);
 
+
+
+  const [simStateValue, setSimStateValue] = useState(null);
+  const [simPlanValue, setSimPlanValue] = useState(null);
+  const [isFocus, setIsFocus] = useState(false);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{data?.name}</Text>
+      <View style={{ }}>
+        <Text style={styles.title}>{data?.name}</Text>
+      </View>
+      <View style={{ }}>
+        <Text style={[ (data?.quality == "VERYGOOD" || data?.quality == "GOOD" )   ? {color:"green"} : (data?.quality == "POOR" )   ? {color:"orange"} : {color:"red"} ,{fontSize: fontPixel(22),}  ]}> {data?.quality} </Text>    
+      </View>
+      {isMessageVisible && <Text style={styles.message}>{msg}</Text>}
 
         <View style={styles.row}>
           <View style={styles.left}>
-            <Text style={styles.text_left}>ID Provider</Text>
+            <Text style={styles.text_left}>ID Tracker</Text>
           </View>
           <View style={styles.right}>
             <Text style={styles.text_right}>
@@ -65,49 +114,41 @@ export default function Page() {
           <View style={styles.left}>
             <Text style={styles.text_left}>Quality</Text>
           </View>
-          <View style={styles.right}>
+          <View style={styles.right}> 
 
-            <Text style={styles.text_right}>
-                    {data?.quality} 
-            </Text>             
-                      
-    
+                      {(data?.quality != "VERYGOOD") && (
+                      <Pressable style={styles.button} onPress={() => _setQualityTracker('VERYGOOD')}>
+                          <Text style={styles.button_text}>Very Good</Text>
+                      </Pressable>
+                      )}
+                      {(data?.quality != "GOOD") && (
                       <Pressable style={styles.button} onPress={() => _setQualityTracker('GOOD')}>
                           <Text style={styles.button_text}>Good</Text>
                       </Pressable>
-
+                      )}
+                      {(data?.quality != "POOR") && (
                       <Pressable style={styles.button} onPress={() => _setQualityTracker('POOR')}>
                           <Text style={styles.button_text}>Poor</Text>
                       </Pressable>
-
+                      )}
+                      {(data?.quality != "BROKEN") && (
                       <Pressable style={styles.button} onPress={() => _setQualityTracker('BROKEN')}>
                           <Text style={styles.button_text}>Broken</Text>
                       </Pressable>
-
-                      <Pressable style={styles.button} onPress={() => _setQualityTracker('2TEST')}>
-                          <Text style={styles.button_text}>Test</Text>
+                      )}
+                      {(data?.quality != "CHECK") && (
+                      <Pressable style={styles.button} onPress={() => _setQualityTracker('CHECK')}>
+                          <Text style={styles.button_text}>Check</Text>
                       </Pressable>
+                      )}
 
             
           </View>
         </View>
 
-
         <View style={styles.row}>
           <View style={styles.left}>
-            <Text style={styles.text_left}>SIM Provider</Text>
-          </View>
-          <View style={styles.right}>
-            <Text style={styles.text_right}>
-               {data?.sim_provider} 
-            </Text>
-          </View>
-        </View>
-
-
-        <View style={styles.row}>
-          <View style={styles.left}>
-            <Text style={styles.text_left}>SIM Id</Text>
+            <Text style={styles.text_left}>SIM ID</Text>
           </View>
           <View style={styles.right}>
             <Text style={styles.text_right}>
@@ -119,11 +160,80 @@ export default function Page() {
 
         <View style={styles.row}>
           <View style={styles.left}>
+            <Text style={styles.text_left}>SIM state</Text>
+          </View>
+          <View style={styles.right}>
+            {loaded && (
+            <Dropdown
+              //style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+              style={styles.dropdown}
+              placeholderStyle={styles.placeholderStyle}
+              selectedTextStyle={styles.selectedTextStyle}
+              //inputSearchStyle={styles.inputSearchStyle}
+              //iconStyle={styles.iconStyle}
+              data={data.sim_states}
+              search
+              maxHeight={300}
+              labelField="name"
+              valueField="id"
+              //placeholder={!isFocus ? 'Select state' : '...'}
+              placeholder={'Select state'}
+              //searchPlaceholder="Search..."
+              value={simStateValue}
+              //onFocus={() => setIsFocus(true)}
+              //onBlur={() => setIsFocus(false)}
+              onChange={item => {                
+                _changeSimState(item.id);
+                //setIsFocus(false);
+              }}
+              />
+              )}
+
+          </View>
+        </View>
+
+
+        <View style={styles.row}>
+          <View style={styles.left}>
+            <Text style={styles.text_left}>SIM Plan</Text>
+          </View>
+          <View style={styles.right}>
+            {loaded && (
+            <Dropdown
+              //style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+              style={styles.dropdown}
+              placeholderStyle={styles.placeholderStyle}
+              selectedTextStyle={styles.selectedTextStyle}
+              //inputSearchStyle={styles.inputSearchStyle}
+              //iconStyle={styles.iconStyle}
+              data={data.sim_plans}
+              search
+              maxHeight={300}
+              labelField="name"
+              valueField="id"
+              //placeholder={!isFocus ? 'Select state' : '...'}
+              placeholder={'Select plan'}
+              //searchPlaceholder="Search..."
+              value={simPlanValue}
+              //onFocus={() => setIsFocus(true)}
+              //onBlur={() => setIsFocus(false)}
+              onChange={item => {
+                _changeSimPlan(item.id);
+                //setIsFocus(false);
+              }}
+              />
+              )}
+          </View>
+        </View>
+
+
+        <View style={styles.row}>
+          <View style={styles.left}>
             <Text style={styles.text_left}>Next event</Text>
           </View>
           <View style={styles.right}>
             <Text style={styles.text_right}>
-               {data?.next_event} 
+            {data?.next_event_start_time} - {data?.next_event} 
             </Text>
           </View>
         </View>
@@ -133,7 +243,7 @@ export default function Page() {
           </View>
           <View style={styles.right}>
             <Text style={styles.text_right}>
-               {data?.last_event} 
+            {data?.last_event_start_time} - {data?.last_event} 
             </Text>
           </View>
         </View>
@@ -231,5 +341,47 @@ const styles = StyleSheet.create({
         //borderWidth: 1,
         //borderStyle: "solid",
         //borderColor: "#FF0000",
+    },
+    message: {
+      color: "#0d822c",
+      fontSize: 20,
+    },
+
+
+
+
+    dropdown: {
+      height: 40,
+      borderColor: 'gray',
+      borderWidth: 0.5,
+      borderRadius: 8,
+      paddingHorizontal: 8,
+      width:200
+    },
+    icon: {
+      marginRight: 5,
+    },
+    label: {
+      position: 'absolute',
+      backgroundColor: 'white',
+      left: 22,
+      top: 8,
+      zIndex: 999,
+      paddingHorizontal: 8,
+      fontSize: 14,
+    },
+    placeholderStyle: {
+      fontSize: 16,
+    },
+    selectedTextStyle: {
+      fontSize: 16,
+    },
+    iconStyle: {
+      width: 20,
+      height: 20,
+    },
+    inputSearchStyle: {
+      height: 40,
+      fontSize: 16,
     },
 });

@@ -74,7 +74,7 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
     setIsAlertVisible(true);
     setTimeout(() => {
                  setIsAlertVisible(false);
-              }, 2000);
+              }, config.DURATION_SHOW_MESSAGE);
   }
 
 

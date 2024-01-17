@@ -28,7 +28,10 @@ export default function Page() {
         </Link>
         <Link style={styles.link} href="/tracker_scanner">          
           <Text style={styles.item}>Scan tracker</Text>
-        </Link>     
+        </Link>  
+        <Link style={styles.link} href="/tracker_detail?name=QL007">          
+          <Text style={styles.item}>TEST</Text>
+        </Link>      
     </View>
   );
 }

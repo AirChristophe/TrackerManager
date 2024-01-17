@@ -1,7 +1,13 @@
 import { router } from "expo-router";
 
+import config from "config";
+
   export function checkAuth() {        
-//console.log("checkAuth");
+console.log("checkAuth - FORCE_LOGIN : " + config.FORCE_LOGIN);
+        if (!config.FORCE_LOGIN)
+        {
+            return;
+        }
         fetch("https://splanner.georacing.com/users/app_geotraker_management_login",
         { 
             method: 'POST',
@@ -14,7 +20,7 @@ import { router } from "expo-router";
         .then((data) => { 
             //setData(JSON.stringify(data)); 
 //console.log(data); 
-                        
+            //return;           
             if (data.state != 1)
             {
                 router.push("/login");
