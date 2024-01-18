@@ -1,4 +1,4 @@
-import React, {  useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Pressable,
@@ -7,38 +7,36 @@ import {
   Dimensions,
   PixelRatio,
 } from "react-native";
-import { Link,router } from "expo-router";
-import { fontPixel} from "./fontsize";
+import { Link, router } from "expo-router";
+import { fontPixel } from "./fontsize";
 import config from "config";
 import { checkAuth } from "./check_auth";
 
 export default function Page() {
-
-  useEffect(() => {    
+  useEffect(() => {
     checkAuth();
-    
   }, []);
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tracker Manager</Text>
-      
-        <Link style={styles.link} href="/events">          
-          <Text style={styles.item}>Events</Text>
-        </Link>
-        <Link style={styles.link} href="/tracker_scanner">          
-          <Text style={styles.item}>Scan tracker</Text>
-        </Link>
-        
-         
+
+      <Link style={styles.link} href="/events">
+        <Text style={styles.item}>Events</Text>
+      </Link>
+      <Link style={styles.link} href="/tracker_scanner">
+        <Text style={styles.item}>Scan tracker</Text>
+      </Link>
+      <Link style={styles.link} href="/ocr">
+        <Text style={styles.item}>OCR</Text>
+      </Link>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  
   container: {
-    flex:12,
+    flex: 12,
     //backgroundColor: "#888555",
     alignItems: "center",
     justifyContent: "flex-start",
@@ -51,7 +49,6 @@ const styles = StyleSheet.create({
     color: config.COLOR_TITLE,
     fontSize: fontPixel(config.SIZE_TITLE),
   },
-
 
   link: {
     padding: 10,
@@ -72,6 +69,5 @@ const styles = StyleSheet.create({
     fontSize: fontPixel(28),
     alignItems: "center",
     justifyContent: "center",
-
   },
 });
