@@ -1,18 +1,16 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
-import { Pressable, Text, View, StyleSheet,FlatList } from "react-native";
-import { router,Link } from "expo-router";
+import { Pressable, Text, View, StyleSheet, FlatList } from "react-native";
+import { router, Link } from "expo-router";
 import { Camera, CameraType } from "expo-camera";
 import { fontPixel } from "./fontsize";
 import config from "config";
 
 export default function App() {
   const [text, setText] = useState("");
-  const [ isWaitingVisible, setisWaitingVisible ] = useState(false);
-  const [ isShowResultsVisible, setisShowResultsVisible ] = useState(false);
+  const [isWaitingVisible, setisWaitingVisible] = useState(false);
+  const [isShowResultsVisible, setisShowResultsVisible] = useState(false);
   const [texts, setTexts] = useState([]);
-
-  
 
   const [permission, requestPermission] = Camera.useCameraPermissions();
 
@@ -102,28 +100,26 @@ export default function App() {
           typeof json?.ParsedResults[0]?.ParsedText === "string"
         ) {
           setText(json?.ParsedResults[0]?.ParsedText);
-          if (json?.ParsedResults[0]?.ParsedText == "")
-          {
+          if (json?.ParsedResults[0]?.ParsedText == "") {
             setisWaitingVisible(false);
             setText("Failed");
             return;
           }
-          if (json?.ParsedResults[0]?.ParsedText.split('\n').length == 0)
-          {
-            setisWaitingVisible(false)
+          if (json?.ParsedResults[0]?.ParsedText.split("\n").length == 0) {
+            setisWaitingVisible(false);
             setText("Failed");
             return;
           }
-console.log("ParsedText : " + json?.ParsedResults[0]?.ParsedText)   
-          setTexts(json?.ParsedResults[0]?.ParsedText.split('\n'));
-console.log("texts : " + texts)          
+          console.log("ParsedText : " + json?.ParsedResults[0]?.ParsedText);
+          setTexts(json?.ParsedResults[0]?.ParsedText.split("\n"));
+          console.log("texts : " + texts);
           setisShowResultsVisible(true);
         } else {
-          setisWaitingVisible(false)
+          setisWaitingVisible(false);
           setText("Failed");
         }
       } else {
-        setisWaitingVisible(false)
+        setisWaitingVisible(false);
         setText("Failed");
       }
     }
@@ -147,26 +143,30 @@ console.log("texts : " + texts)
       ></Camera>
 
       <Pressable style={styles.button} onPress={takePicture}>
-            <Text style={styles.button_text}>Take Picture</Text>
+        <Text style={styles.button_text}>Take Picture</Text>
       </Pressable>
       <View>
-        <Text style={{fontSize: fontPixel(20),}} >{text}</Text>
+        <Text style={{ fontSize: fontPixel(20) }}>{text}</Text>
       </View>
 
-      {isShowResultsVisible && ( 
-        <FlatList style={styles.listing}
-        keyExtractor={(item) => item}
-        data={texts}
-        renderItem={({ item }) => (
-          <View style={styles.itemRow}>
-              <Link style={styles.link} href="/tracker_detail?name={{item}}">
-                <Text style={styles.item}>{item}</Text>
-             </Link>    
-          </View>           
-        )}
+      {isShowResultsVisible && (
+        <FlatList
+          style={styles.listing}
+          keyExtractor={(item) => item}
+          data={texts}
+          renderItem={({ item }) => {
+            const path = `/tracker_detail?name=${item}`;
+            console.log(path);
+            return (
+              <View style={styles.itemRow}>
+                <Link style={styles.link} href={path}>
+                  <Text style={styles.item}>{item}</Text>
+                </Link>
+              </View>
+            );
+          }}
         />
-        )}
-
+      )}
 
       {isWaitingVisible && <Text style={styles.message}>Processing...</Text>}
     </View>
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    flex:12,
+    flex: 12,
     //backgroundColor: "#888555",
     alignItems: "center",
     justifyContent: "flex-start",
@@ -190,15 +190,14 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor:config.COLOR_BUTTON,
-    borderRadius:config.BUTTON_BORDER_RADIUS
+    backgroundColor: config.COLOR_BUTTON,
+    borderRadius: config.BUTTON_BORDER_RADIUS,
   },
 
   button_text: {
-    color:"#FFFFFF",
+    color: "#FFFFFF",
     fontSize: 22,
-    padding:7
-
+    padding: 7,
   },
   message: {
     color: "#0d822c",
@@ -206,20 +205,17 @@ const styles = StyleSheet.create({
   },
 
   listing: {
-    marginTop:5,
+    marginTop: 5,
     width: "100%",
-    height:20
+    height: 20,
   },
 
-  
   itemRow: {
     padding: 0,
     //margin: 5,
     //backgroundColor: "#014786",
     alignItems: "center",
     justifyContent: "center",
-
-    
   },
 
   link: {
@@ -232,6 +228,4 @@ const styles = StyleSheet.create({
     fontSize: fontPixel(22),
     color: "#014786",
   },
-
-
 });
