@@ -62,7 +62,7 @@ export default function App() {
       console.log(url);
 
       var myHeaders = new Headers();
-      myHeaders.append("apikey", "K88936629588957");
+      myHeaders.append("apikey", config.OCR_API_KEY);
 
       var formdata = new FormData();
       formdata.append("language", "eng");

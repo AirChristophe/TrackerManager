@@ -11,4 +11,6 @@ export default {
   DURATION_SHOW_MESSAGE: 3000,
 
   FORCE_LOGIN: true,
+
+  OCR_API_KEY : "K88936629588957"
 };
