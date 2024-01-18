@@ -18,8 +18,6 @@ export default function Page() {
 
   const [addMessage, setAddMessage] = useState("");
 
-
-
   const _showHideMessage =  () => {
    if (isShowMessageVisible)
     {
@@ -41,12 +39,22 @@ export default function Page() {
   };
 
   const _fetchData = async () => {
+console.log("params.name : " + params.name);    
+    if ( (params.name === undefined) && (params.name == "") )
+    {
+        return;
+    }
     const url =
       "https://splanner.georacing.com/trackers/getTrackerDetailByName/" + params.name;
     const response = await fetch(url);
     const d = await response.json();
 console.log("--------");
 console.log(d);
+    if (d.id === undefined)
+    {
+        return;
+    }
+
 //console.log("Id provider : " + d.id_provider_tracker);
 console.log(d.sim_states);
     setSimStateValue(d.sim_state_id)
@@ -519,6 +527,10 @@ const styles = StyleSheet.create({
     listing: {
       marginTop:5,
       width: "100%",
+
+      borderWidth: 0,
+      borderStyle: "solid",
+      borderColor: "#000000",
     },
   
     itemRow: {
@@ -527,6 +539,10 @@ const styles = StyleSheet.create({
       //backgroundColor: "#014786",
       alignItems: "left",
       justifyContent: "center",
+
+      borderWidth: 0,
+      borderStyle: "solid",
+      borderColor: "#000000",
 
       
     },

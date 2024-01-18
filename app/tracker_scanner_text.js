@@ -1,12 +1,18 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
-import { Button, Text, View, StyleSheet } from "react-native";
-import { router } from "expo-router";
+import { Pressable, Text, View, StyleSheet,FlatList } from "react-native";
+import { router,Link } from "expo-router";
 import { Camera, CameraType } from "expo-camera";
 import { fontPixel } from "./fontsize";
+import config from "config";
 
 export default function App() {
   const [text, setText] = useState("");
+  const [ isWaitingVisible, setisWaitingVisible ] = useState(false);
+  const [ isShowResultsVisible, setisShowResultsVisible ] = useState(false);
+  const [texts, setTexts] = useState([]);
+
+  
 
   const [permission, requestPermission] = Camera.useCameraPermissions();
 
@@ -24,9 +30,11 @@ export default function App() {
   }
 
   const takePicture = async () => {
-    console.log("TAKE PICTURE");
+    //console.log("TAKE PICTURE");
     if (cameraRef && cameraRef.current) {
-      console.log("processing");
+      //console.log("processing");
+      setisWaitingVisible(true);
+      setisShowResultsVisible(false);
       const data = await cameraRef.current.takePictureAsync({
         base64: true,
         //quality: 0,
@@ -94,62 +102,136 @@ export default function App() {
           typeof json?.ParsedResults[0]?.ParsedText === "string"
         ) {
           setText(json?.ParsedResults[0]?.ParsedText);
+          if (json?.ParsedResults[0]?.ParsedText == "")
+          {
+            setisWaitingVisible(false);
+            setText("Failed");
+            return;
+          }
+          if (json?.ParsedResults[0]?.ParsedText.split('\n').length == 0)
+          {
+            setisWaitingVisible(false)
+            setText("Failed");
+            return;
+          }
+console.log("ParsedText : " + json?.ParsedResults[0]?.ParsedText)   
+          setTexts(json?.ParsedResults[0]?.ParsedText.split('\n'));
+console.log("texts : " + texts)          
+          setisShowResultsVisible(true);
         } else {
-          setText("failed");
+          setisWaitingVisible(false)
+          setText("Failed");
         }
       } else {
-        setText("failed");
+        setisWaitingVisible(false)
+        setText("Failed");
       }
     }
+    setisWaitingVisible(false);
   };
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Scan tracker</Text>
       <Camera
         ref={cameraRef}
         style={{
           //flex: 1,
           //flexDirection: "row",
-          height: 400,
-          width: 400,
+          height: 300,
+          width: 300,
           borderWidth: 1,
           borderColor: "red",
           marginVertical: 10,
         }}
       ></Camera>
 
-      <Button title="Take Picture" onPress={() => takePicture()} />
-
+      <Pressable style={styles.button} onPress={takePicture}>
+            <Text style={styles.button_text}>Take Picture</Text>
+      </Pressable>
       <View>
-        <Text>{text}</Text>
+        <Text style={{fontSize: fontPixel(20),}} >{text}</Text>
       </View>
+
+      {isShowResultsVisible && ( 
+        <FlatList style={styles.listing}
+        keyExtractor={(item) => item}
+        data={texts}
+        renderItem={({ item }) => (
+          <View style={styles.itemRow}>
+              <Link style={styles.link} href="/tracker_detail?name={{item}}">
+                <Text style={styles.item}>{item}</Text>
+             </Link>    
+          </View>           
+        )}
+        />
+        )}
+
+
+      {isWaitingVisible && <Text style={styles.message}>Processing...</Text>}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   title: {
-    color: "#014786",
+    color: config.COLOR_TITLE,
     fontSize: fontPixel(30),
   },
 
   container: {
-    display: "flex",
-    //flex:1,
-    flexDirection: "column",
-    backgroundColor: "#FFFFFF",
-    //height: "100%",
+    flex:12,
+    //backgroundColor: "#888555",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     padding: 0,
     margin: 0,
-    marginVertical: 40,
     width: "100%",
   },
 
-  scanner: {
-    width: 300,
-    height: 400,
-    margin: 20,
+  button: {
+    backgroundColor:config.COLOR_BUTTON,
+    borderRadius:config.BUTTON_BORDER_RADIUS
   },
+
+  button_text: {
+    color:"#FFFFFF",
+    fontSize: 22,
+    padding:7
+
+  },
+  message: {
+    color: "#0d822c",
+    fontSize: 20,
+  },
+
+  listing: {
+    marginTop:5,
+    width: "100%",
+    height:20
+  },
+
+  
+  itemRow: {
+    padding: 0,
+    //margin: 5,
+    //backgroundColor: "#014786",
+    alignItems: "center",
+    justifyContent: "center",
+
+    
+  },
+
+  link: {
+    padding: 0,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  item: {
+    fontSize: fontPixel(22),
+    color: "#014786",
+  },
+
+
 });

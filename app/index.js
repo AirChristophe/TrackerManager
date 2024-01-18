@@ -25,10 +25,10 @@ export default function Page() {
         <Text style={styles.item}>Events</Text>
       </Link>
       <Link style={styles.link} href="/tracker_scanner">
-        <Text style={styles.item}>Scan tracker</Text>
+        <Text style={styles.item}>Scan tracker (CODE)</Text>
       </Link>
-      <Link style={styles.link} href="/ocr">
-        <Text style={styles.item}>OCR</Text>
+      <Link style={styles.link} href="/tracker_scanner_text">
+        <Text style={styles.item}>Scan tracker (TEXT)</Text>
       </Link>
     </View>
   );

@@ -7,7 +7,7 @@ export default {
 
   BG_COLOR_BUTTON: "#014786",
   BG_COLOR_MENU: "#173c54",
-  VERSION: "1.05",
+  VERSION: "1.06",
   DURATION_SHOW_MESSAGE: 3000,
 
   FORCE_LOGIN: false,
