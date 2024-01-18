@@ -30,17 +30,33 @@ export default function App() {
   const takePicture = async () => {
     //console.log("TAKE PICTURE");
     if (cameraRef && cameraRef.current) {
+      /*
+      const supportedRatios = await cameraRef.current.getSupportedRatiosAsync();
+
+      const pictureSizes = await Promise.all(
+        supportedRatios.map((ratio) =>
+          cameraRef.current.getAvailablePictureSizesAsync(ratio).catch(() => [])
+        )
+      );
+
+      console.log(supportedRatios);
+      console.log(pictureSizes);
+
+      return false;
+      */
+
       //console.log("processing");
       setisWaitingVisible(true);
       setisShowResultsVisible(false);
       const data = await cameraRef.current.takePictureAsync({
         base64: true,
-        //quality: 0,
+        quality: 0.5,
         //imageType: "jpg",
       });
       //console.log(data);
       //setImage(data.uri);
 
+      /*
       const body = {
         base64: "data:image/png;base64," + data?.base64,
       };
@@ -60,6 +76,7 @@ export default function App() {
 
       const url = "https://apiv2regioneo.foound.com" + path;
       console.log(url);
+      */
 
       var myHeaders = new Headers();
       myHeaders.append("apikey", config.OCR_API_KEY);
@@ -67,7 +84,8 @@ export default function App() {
       var formdata = new FormData();
       formdata.append("language", "eng");
       formdata.append("isOverlayRequired", "false");
-      formdata.append("url", url);
+      //formdata.append("url", url);
+      formdata.append("base64image", "data:image/png;base64," + data?.base64);
       formdata.append("iscreatesearchablepdf", "false");
       formdata.append("issearchablepdfhidetextlayer", "false");
 
@@ -83,22 +101,23 @@ export default function App() {
         requestOptions
       );
       const result = await response.text();
-      //console.log(result);
+      console.log(result);
       //console.log(typeof result);
 
       if (typeof result === "string") {
         const json = JSON.parse(result);
         //console.log(json);
         //console.log(typeof json);
-//console.log(typeof json?.ParsedResults);
-// console.log(json?.ParsedResults);
-// console.log(json?.ParsedResults[0]);
+        console.log(11111);
+        console.log(typeof json?.ParsedResults);
+        console.log(json?.ParsedResults);
+        console.log(json?.ParsedResults[0]);
         if (
           typeof json?.ParsedResults === "object" &&
           typeof json?.ParsedResults[0] === "object" &&
           typeof json?.ParsedResults[0]?.ParsedText === "string"
         ) {
-          //setText(json?.ParsedResults[0]?.ParsedText);
+          setText(json?.ParsedResults[0]?.ParsedText);
           if (json?.ParsedResults[0]?.ParsedText == "") {
             setisWaitingVisible(false);
             setText("Failed");
@@ -109,9 +128,9 @@ export default function App() {
             setText("Failed");
             return;
           }
-//console.log("ParsedText : " + json?.ParsedResults[0]?.ParsedText);
+          console.log("ParsedText : " + json?.ParsedResults[0]?.ParsedText);
           setTexts(json?.ParsedResults[0]?.ParsedText.split("\n"));
-//console.log("texts : " + texts);
+          console.log("texts : " + texts);
           setisShowResultsVisible(true);
         } else {
           setisWaitingVisible(false);
@@ -129,6 +148,7 @@ export default function App() {
     <View style={styles.container}>
       <Text style={styles.title}>Scan tracker</Text>
       <Camera
+        pictureSize="640x480"
         ref={cameraRef}
         style={{
           //flex: 1,
@@ -155,6 +175,7 @@ export default function App() {
           data={texts}
           renderItem={({ item }) => {
             const path = `/tracker_detail?name=${item}`;
+            console.log(path);
             return (
               <View style={styles.itemRow}>
                 <Link style={styles.link} href={path}>
