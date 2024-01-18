@@ -117,7 +117,7 @@ export default function App() {
           typeof json?.ParsedResults[0] === "object" &&
           typeof json?.ParsedResults[0]?.ParsedText === "string"
         ) {
-          setText(json?.ParsedResults[0]?.ParsedText);
+          //setText(json?.ParsedResults[0]?.ParsedText);
           if (json?.ParsedResults[0]?.ParsedText == "") {
             setisWaitingVisible(false);
             setText("Failed");
@@ -175,7 +175,7 @@ export default function App() {
           data={texts}
           renderItem={({ item }) => {
             const path = `/tracker_detail?name=${item}`;
-            console.log(path);
+//console.log(path);
             return (
               <View style={styles.itemRow}>
                 <Link style={styles.link} href={path}>
