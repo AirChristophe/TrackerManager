@@ -10,5 +10,5 @@ export default {
   VERSION: "1.06",
   DURATION_SHOW_MESSAGE: 3000,
 
-  FORCE_LOGIN: false,
+  FORCE_LOGIN: true,
 };

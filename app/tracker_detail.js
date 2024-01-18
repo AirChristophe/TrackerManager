@@ -39,7 +39,7 @@ export default function Page() {
   };
 
   const _fetchData = async () => {
-console.log("params.name : " + params.name);    
+//console.log("params.name : " + params.name);    
     if ( (params.name === undefined) && (params.name == "") )
     {
         return;
@@ -48,8 +48,8 @@ console.log("params.name : " + params.name);
       "https://splanner.georacing.com/trackers/getTrackerDetailByName/" + params.name;
     const response = await fetch(url);
     const d = await response.json();
-console.log("--------");
-console.log(d);
+//console.log("--------");
+//console.log(d);
     if (d.id === undefined)
     {
         return;

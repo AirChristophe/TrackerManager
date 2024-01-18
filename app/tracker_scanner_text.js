@@ -90,16 +90,15 @@ export default function App() {
         const json = JSON.parse(result);
         //console.log(json);
         //console.log(typeof json);
-        console.log(11111);
-        console.log(typeof json?.ParsedResults);
-        console.log(json?.ParsedResults);
-        console.log(json?.ParsedResults[0]);
+//console.log(typeof json?.ParsedResults);
+// console.log(json?.ParsedResults);
+// console.log(json?.ParsedResults[0]);
         if (
           typeof json?.ParsedResults === "object" &&
           typeof json?.ParsedResults[0] === "object" &&
           typeof json?.ParsedResults[0]?.ParsedText === "string"
         ) {
-          setText(json?.ParsedResults[0]?.ParsedText);
+          //setText(json?.ParsedResults[0]?.ParsedText);
           if (json?.ParsedResults[0]?.ParsedText == "") {
             setisWaitingVisible(false);
             setText("Failed");
@@ -110,9 +109,9 @@ export default function App() {
             setText("Failed");
             return;
           }
-          console.log("ParsedText : " + json?.ParsedResults[0]?.ParsedText);
+//console.log("ParsedText : " + json?.ParsedResults[0]?.ParsedText);
           setTexts(json?.ParsedResults[0]?.ParsedText.split("\n"));
-          console.log("texts : " + texts);
+//console.log("texts : " + texts);
           setisShowResultsVisible(true);
         } else {
           setisWaitingVisible(false);
@@ -156,7 +155,6 @@ export default function App() {
           data={texts}
           renderItem={({ item }) => {
             const path = `/tracker_detail?name=${item}`;
-            console.log(path);
             return (
               <View style={styles.itemRow}>
                 <Link style={styles.link} href={path}>
