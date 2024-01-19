@@ -10,6 +10,7 @@ import {
   import { router } from "expo-router";
   import { fontPixel} from "./fontsize";
   import config from "config";
+  import * as SecureStore from 'expo-secure-store';
   
   export default function Page() {
 
@@ -20,16 +21,35 @@ import {
 
 
     // test a virer
-    
+/*    
     const _fetchData = async () => {
       const url = "https://splanner.georacing.com/users/logout";
       const response = await fetch(url);
 
     };
-  
+*/  
     useEffect(() => {
-      _fetchData();
+      //_fetchData();
+
+      _loadLoginValues();
     }, []);
+
+    async function save(key, value) {
+      await SecureStore.setItemAsync(key, value);
+    }
+    
+    async function _loadLoginValues() {
+      let result = await SecureStore.getItemAsync("login");
+      if (result) 
+      {
+        setLogin(result);
+      } 
+      result = await SecureStore.getItemAsync("passwd");
+      if (result) 
+      {
+        setPasswd(result);
+      } 
+    }
 
     const _showMessage = async (message) => {
       setMsg(message);
@@ -54,6 +74,10 @@ import {
                _showMessage("Passwd is required!");
               return;
           }
+
+          save("login", login);
+          save("passwd", passwd);
+
           fetch("https://splanner.georacing.com/users/app_geotraker_management_login",
           { method: 'POST',
             headers: new Headers({
