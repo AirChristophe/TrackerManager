@@ -30,6 +30,9 @@ export default function Page() {
       <Link style={styles.link} href="/tracker_scanner_text">
         <Text style={styles.item}>Scan tracker (TEXT)</Text>
       </Link>
+      <Link style={styles.link} href="/tracker_scanner_text">
+        <Text style={styles.item}>TUTU</Text>
+      </Link>
     </View>
   );
 }
