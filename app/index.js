@@ -31,7 +31,7 @@ export default function Page() {
         <Text style={styles.item}>Scan tracker (TEXT)</Text>
       </Link>
       <Link style={styles.link} href="/tracker_scanner_text">
-        <Text style={styles.item}>TUTU</Text>
+        <Text style={styles.item}>TUTU 2</Text>
       </Link>
     </View>
   );
