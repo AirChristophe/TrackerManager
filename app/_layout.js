@@ -1,25 +1,41 @@
-import { View, Button,Pressable, StyleSheet, Text,Dimensions,PixelRatio } from "react-native";
-import { TabRouter } from "@react-navigation/native";
-import { Navigator, usePathname, Slot, Link,router } from "expo-router";
-import { widthPixel,heightPixel, fontPixel,pixelSizeVertical,pixelSizeHorizontal} from './fontsize';
+import {
+  View,
+  Button,
+  Pressable,
+  StyleSheet,
+  Text,
+  Dimensions,
+  PixelRatio,
+} from "react-native";
+import { Stack } from "expo-router/stack";
+import { Navigator, usePathname, Slot, Link, router } from "expo-router";
+import {
+  widthPixel,
+  heightPixel,
+  fontPixel,
+  pixelSizeVertical,
+  pixelSizeHorizontal,
+} from "./fontsize";
 import config from "config";
 
-import * as Sentry from 'sentry-expo';
+import * as Sentry from "sentry-expo";
 
 Sentry.init({
-  dsn: 'https://eee40f78fc3eb4bb091cffc7fe96629f@o338749.ingest.sentry.io/4506554246889472',
+  dsn: "https://eee40f78fc3eb4bb091cffc7fe96629f@o338749.ingest.sentry.io/4506554246889472",
   enableInExpoDevelopment: true,
   debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
 });
 
-
-const goBack = ({  }) => {
+const goBack = ({}) => {
   //alert("Back");
+
+  console.log(11111);
+  console.log(router.canGoBack());
   router.back();
 };
 
-const goHome = ({  }) => {
-  router.push('/');
+const goHome = ({}) => {
+  router.push("/");
 };
 
 const logout = async () => {
@@ -29,8 +45,9 @@ const logout = async () => {
   router.push("/login");
 };
 
-
 export default function HomeLayout() {
+  return <Stack />;
+
   return (
     /*
     <View style={{ margin: 40 }}>
@@ -38,18 +55,26 @@ export default function HomeLayout() {
       <Slot />
     </View>
     */
-    <Navigator router={TabRouter}>
+
+    <Stack
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#f4511e",
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
+      }}
+    >
       <View style={styles.container}>
-          <Header />
-          <Slot style={styles.slot} />
-          <Footer />
-        </View>
-    </Navigator>
+        <Header />
+        <Slot style={styles.slot} />
+        <Footer />
+      </View>
+    </Stack>
   );
 }
-
-
-
 
 function Header() {
   const { navigation, state, descriptors, router } = Navigator.useContext();
@@ -58,7 +83,7 @@ function Header() {
 
   return (
     <View style={styles.header}>
-      <View style={{flexDirection: "row"}}>
+      <View style={{ flexDirection: "row" }}>
         <Pressable style={styles.button} onPress={goHome}>
           <Text style={styles.text}>HOME</Text>
         </Pressable>
@@ -74,7 +99,6 @@ function Header() {
 }
 
 function Footer() {
-
   return (
     <View style={styles.footer}>
       <Text style={styles.text_footer}>GeoRacing - V{config.VERSION}</Text>
@@ -82,35 +106,32 @@ function Footer() {
   );
 }
 
-
-
 const styles = StyleSheet.create({
   container: {
     //display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    width:"95%",
-    height:"100%",
-    margin:5,
-    padding:5,
-    marginTop:40,
-    //borderWidth: 5, 
-    //borderStyle: "solid", 
+    width: "95%",
+    height: "100%",
+    margin: 5,
+    padding: 5,
+    marginTop: 40,
+    //borderWidth: 5,
+    //borderStyle: "solid",
     //borderColor: "#000000",
     //backgroundColor: "red",
-    
   },
 
   header: {
     flex: 2,
     flexDirection: "row",
-    width:"100%",
+    width: "100%",
     //backgroundColor: "#ffff44",
     alignItems: "center",
     justifyContent: "center",
-    //borderWidth: 1, 
-    //borderStyle: "solid", 
+    //borderWidth: 1,
+    //borderStyle: "solid",
     //borderColor: "#000000",
   },
 
@@ -120,7 +141,7 @@ const styles = StyleSheet.create({
     //backgroundColor: "#ffff44",
     alignItems: "center",
     justifyContent: "center",
-    width:"90%",
+    width: "90%",
   },
 
   footer: {
@@ -130,48 +151,47 @@ const styles = StyleSheet.create({
     //backgroundColor: "#ffff44",
     alignItems: "center",
     justifyContent: "center",
-    width:"100%",
-    marginBottom:40,
-   
-    //borderWidth: 1, 
-    //borderStyle: "solid", 
+    width: "100%",
+    marginBottom: 40,
+
+    //borderWidth: 1,
+    //borderStyle: "solid",
     //borderColor: "#000000",
   },
   button: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 12,
     paddingHorizontal: 32,
     //borderRadius: 4,
     //elevation: 3,
     backgroundColor: config.BG_COLOR_MENU,
-    borderWidth: 1, 
-    borderStyle: "solid", 
+    borderWidth: 1,
+    borderStyle: "solid",
     borderColor: "#FFFFFF",
   },
   text: {
     fontSize: 16,
     lineHeight: 21,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     letterSpacing: 0.25,
-    color: 'white',
+    color: "white",
   },
   text_footer: {
     fontSize: 16,
     lineHeight: 21,
-    fontWeight: 'bold',
-    color:config.COLOR_FOOTER,
+    fontWeight: "bold",
+    color: config.COLOR_FOOTER,
   },
 
   test: {
-    flex:1,
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
     fontSize: 16,
     lineHeight: 21,
-    fontWeight: 'bold',
-    width:"100%",
-    color:config.COLOR_FOOTER,
+    fontWeight: "bold",
+    width: "100%",
+    color: config.COLOR_FOOTER,
   },
 });
-
