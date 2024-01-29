@@ -24,7 +24,6 @@ console.log(d);
 
   useEffect(() => {
     checkAuth();
-
     _fetchData();
   }, []);
 
@@ -37,8 +36,9 @@ console.log(d);
         renderItem={({ item }) => (
           <View style={styles.itemRow}>
             <Link
+              push 
               href={{
-                pathname: "/event",
+                pathname: "/event_choice",
                 // /* 1. Navigate to the details route with query params */
                 params: { id: item.E.id, name: item.E.name },
               }}

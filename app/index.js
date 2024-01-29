@@ -21,14 +21,14 @@ export default function Page() {
     <View style={styles.container}>
       <Text style={styles.title}>Tracker Manager</Text>
 
-      <Link style={styles.link} href="/events">
+      <Link style={styles.link} push  href="/events">
         <Text style={styles.item}>Events</Text>
       </Link>
-      <Link style={styles.link} href="/tracker_scanner">
+      <Link style={styles.link} push href="/tracker_scanner">
         <Text style={styles.item}>Scan tracker (CODE)</Text>
       </Link>
-      <Link style={styles.link} href="/tracker_scanner_text">
-        <Text style={styles.item}>Scan tracker (TEXT) -</Text>
+      <Link style={styles.link} push href="/tracker_scanner_text">
+        <Text style={styles.item}>Scan tracker (TEXT)</Text>
       </Link>
     </View>
   );

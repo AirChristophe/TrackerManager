@@ -14,21 +14,21 @@ export default function Page() {
   const [datas, setDatas] = useState([]);
 
 
-  const _affectTracker = async (tracker_name) => {
-console.log("_affectTracker : tracker_name : " + tracker_name);    
-    const url = "https://splanner.georacing.com/trackers/affectTrackerToEvent/" + params.id + "/" + tracker_name;
+  const _collectTracker = async (tracker_name) => {
+    console.log("_collectTracker : params.id : " + params.id);
+    console.log("_collectTracker : tracker_name : " + tracker_name);    
+    const url = "https://splanner.georacing.com/trackers/collectTrackerToEvent/" + params.id + "/" + tracker_name;
     const response = await fetch(url);
     const d = await response.json();
-    console.log("_affectTracker : params.id : " + params.id);  
     //alert(d.message);
     setMsg(d.message);
     _showMessage(d.message);
 
-    _getTrackersOfEvent(params.id);
+    _getCollectedTrackersOfEvent(params.id);
   };
 
-  const _getTrackersOfEvent = async (event_id) => {
-    const url = "https://splanner.georacing.com/trackers/getTrackersOfEvent/" + event_id;
+  const _getCollectedTrackersOfEvent = async (event_id) => {
+    const url = "https://splanner.georacing.com/trackers/getCollectedTrackersOfEvent/" + event_id;
     const response = await fetch(url);
     const d = await response.json();
 
@@ -39,7 +39,7 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
 
   useEffect(() => {
     checkAuth();
-    _getTrackersOfEvent(params.id);
+    _getCollectedTrackersOfEvent(params.id);
   }, []);
 
   
@@ -62,7 +62,7 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
     setScanned(true);
     //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
 //console.log("handleBarCodeScanned data : " + data);
-    _affectTracker(data);        
+  _collectTracker(data);        
   };
 
 
@@ -89,6 +89,7 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{params?.name}</Text>
+      <Text style={styles.subtitle}>COLLECT TRACKERS </Text>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={styles.scanner}  
@@ -100,7 +101,7 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
       )}
       {isAlertVisible && <Text style={styles.message}>{msg}</Text>}
 
-       <Text style={styles.text}>Nb trackers in Event : {datas.length}</Text>
+       <Text style={styles.text}>Nb trackers collected : {datas.length}</Text>
 
        <FlatList style={styles.listing}
         keyExtractor={(item) => item.id}
@@ -130,12 +131,16 @@ const styles = StyleSheet.create({
 
   title: {
     color: config.COLOR_TITLE,
-    fontSize: 20,
+    fontSize:  fontPixel(config.SIZE_TITLE),
+  },
+  subtitle: {
+    color: config.COLOR_TITLE,
+    fontSize:  fontPixel(20),
   },
 
   message: {
     color: "#FF0000",
-    fontSize: 20,
+    fontSize:  fontPixel(20),
   },
 
   listing: {
