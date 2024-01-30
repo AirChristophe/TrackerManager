@@ -14,6 +14,7 @@ import { fontPixel } from "./fontsize";
 import config from "config";
 import { checkAuth } from "./check_auth";
 import Header from "../components/Header";
+import Layout from "../components/Layout";
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -51,7 +52,7 @@ export default function App() {
   }
 
   return (
-    <>
+    <Layout>
       <Header title="tracker scanner" action="/" />
       <View style={styles.container}>
         <Text style={styles.title}>Scan tracker</Text>
@@ -78,7 +79,7 @@ export default function App() {
           <Text style={styles.button_text}>OK</Text>
         </Pressable>
       </View>
-    </>
+    </Layout>
   );
 }
 
