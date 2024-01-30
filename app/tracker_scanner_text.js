@@ -5,6 +5,7 @@ import { router, Link } from "expo-router";
 import { Camera, CameraType } from "expo-camera";
 import { fontPixel } from "./fontsize";
 import config from "config";
+import Header from "../components/Header";
 
 export default function App() {
   const [text, setText] = useState("");
@@ -145,50 +146,53 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Scan tracker</Text>
-      <Camera
-        pictureSize="640x480"
-        ref={cameraRef}
-        style={{
-          //flex: 1,
-          //flexDirection: "row",
-          height: 300,
-          width: 300,
-          borderWidth: 1,
-          borderColor: "red",
-          marginVertical: 10,
-        }}
-      ></Camera>
-
-      <Pressable style={styles.button} onPress={takePicture}>
-        <Text style={styles.button_text}>Take Picture</Text>
-      </Pressable>
-      <View>
-        <Text style={{ fontSize: fontPixel(20) }}>{text}</Text>
-      </View>
-
-      {isShowResultsVisible && (
-        <FlatList
-          style={styles.listing}
-          keyExtractor={(item) => item}
-          data={texts}
-          renderItem={({ item }) => {
-            const path = `/tracker_detail?name=${item}`;
-//console.log(path);
-            return (
-              <View style={styles.itemRow}>
-                <Link style={styles.link} href={path}>
-                  <Text style={styles.item}>{item}</Text>
-                </Link>
-              </View>
-            );
+    <>
+      <Header title="tracker scanner text" action="/" />
+      <View style={styles.container}>
+        <Text style={styles.title}>Scan tracker</Text>
+        <Camera
+          pictureSize="640x480"
+          ref={cameraRef}
+          style={{
+            //flex: 1,
+            //flexDirection: "row",
+            height: 300,
+            width: 300,
+            borderWidth: 1,
+            borderColor: "red",
+            marginVertical: 10,
           }}
-        />
-      )}
+        ></Camera>
 
-      {isWaitingVisible && <Text style={styles.message}>Processing...</Text>}
-    </View>
+        <Pressable style={styles.button} onPress={takePicture}>
+          <Text style={styles.button_text}>Take Picture</Text>
+        </Pressable>
+        <View>
+          <Text style={{ fontSize: fontPixel(20) }}>{text}</Text>
+        </View>
+
+        {isShowResultsVisible && (
+          <FlatList
+            style={styles.listing}
+            keyExtractor={(item) => item}
+            data={texts}
+            renderItem={({ item }) => {
+              const path = `/tracker_detail?name=${item}`;
+              //console.log(path);
+              return (
+                <View style={styles.itemRow}>
+                  <Link style={styles.link} href={path}>
+                    <Text style={styles.item}>{item}</Text>
+                  </Link>
+                </View>
+              );
+            }}
+          />
+        )}
+
+        {isWaitingVisible && <Text style={styles.message}>Processing...</Text>}
+      </View>
+    </>
   );
 }
 

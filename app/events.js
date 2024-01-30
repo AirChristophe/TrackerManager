@@ -1,24 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { Link, router, useFocusEffect } from "expo-router";
 import { StyleSheet, View, FlatList, Text, Pressable } from "react-native";
-import { fontPixel} from "./fontsize";
+import { fontPixel } from "./fontsize";
 import config from "config";
 import { checkAuth } from "./check_auth";
+import Header from "../components/Header";
 //import { sayHello } from './MyFunctions';
 
 export default function Page() {
-
-  
   const [datas, setDatas] = useState([]);
 
   const _fetchData = async () => {
     //const url = "https://player.georacing.com/datas/events.json?app=1";
     // TODO a remplacer par variable globales mis a jor apres login
-//console.log("events user_id :" + global.user_id);    
-    const url = "https://splanner.georacing.com/events/getEventsByUser/" + global.user_id + "/" + global.user_type_id;    
+    //console.log("events user_id :" + global.user_id);
+    const url =
+      "https://splanner.georacing.com/events/getEventsByUser/" +
+      global.user_id +
+      "/" +
+      global.user_type_id;
     const response = await fetch(url);
     const d = await response.json();
-console.log(d);
+    console.log(d);
     setDatas(d);
   };
 
@@ -28,38 +31,40 @@ console.log(d);
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Events</Text>
-      <FlatList style={styles.listing}
-        keyExtractor={(item) => item.E.id}
-        data={datas}
-        renderItem={({ item }) => (
-          <View style={styles.itemRow}>
-            <Link
-              push 
-              href={{
-                pathname: "/event_choice",
-                // /* 1. Navigate to the details route with query params */
-                params: { id: item.E.id, name: item.E.name },
-              }}
-            >
-              <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.itemDate}>{item.E.start_time} - </Text>
-                <Text style={styles.itemText}>{item.E.name}</Text>
-              </View>
-            </Link>
-          </View>
-        )}
-      />
-    </View>
+    <>
+      <Header title="Events" action="/" />
+      <View style={styles.container}>
+        <Text style={styles.title}>Events</Text>
+        <FlatList
+          style={styles.listing}
+          keyExtractor={(item) => item.E.id}
+          data={datas}
+          renderItem={({ item }) => (
+            <View style={styles.itemRow}>
+              <Link
+                push
+                href={{
+                  pathname: "/event_choice",
+                  // /* 1. Navigate to the details route with query params */
+                  params: { id: item.E.id, name: item.E.name },
+                }}
+              >
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={styles.itemDate}>{item.E.start_time} - </Text>
+                  <Text style={styles.itemText}>{item.E.name}</Text>
+                </View>
+              </Link>
+            </View>
+          )}
+        />
+      </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  
-
   container: {
-    flex:12,
+    flex: 12,
     //backgroundColor: "#888555",
     alignItems: "center",
     justifyContent: "flex-start",
@@ -76,9 +81,9 @@ const styles = StyleSheet.create({
   listing: {
     //width: "95%",
     //height:"60%",
-    marginBottom:10,
-    //borderWidth: 1, 
-    //borderStyle: "solid", 
+    marginBottom: 10,
+    //borderWidth: 1,
+    //borderStyle: "solid",
     //borderColor: config.COLOR_TITLE,
     width: "100%",
   },
@@ -91,7 +96,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     //width: "100%",
     //flexShrink: 1
-    
   },
   itemDate: {
     //backgroundColor: "#111111",
@@ -103,6 +107,6 @@ const styles = StyleSheet.create({
     fontSize: fontPixel(20),
     //flex:1,
     //flexWrap: 'wrap',
-    flexShrink: 1
+    flexShrink: 1,
   },
 });

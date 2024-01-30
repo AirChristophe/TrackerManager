@@ -1,11 +1,19 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button, TextInput,Pressable } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  TextInput,
+  Pressable,
+} from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { router } from "expo-router";
-import { fontPixel} from "./fontsize";
+import { fontPixel } from "./fontsize";
 import config from "config";
 import { checkAuth } from "./check_auth";
+import Header from "../components/Header";
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -14,7 +22,7 @@ export default function App() {
 
   useEffect(() => {
     checkAuth();
-    
+
     const getBarCodeScannerPermissions = async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === "granted");
@@ -32,7 +40,7 @@ export default function App() {
 
   const _goToTracker = () => {
     //alert(tracker_name);
-    router.push({ pathname: '/tracker_detail', params: { name: text } });
+    router.push({ pathname: "/tracker_detail", params: { name: text } });
   };
 
   if (hasPermission === null) {
@@ -42,37 +50,41 @@ export default function App() {
     return <Text>No access to camera</Text>;
   }
 
-
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Scan tracker</Text>
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={styles.scanner}
-      />
-      {scanned && (
-        <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
-      )}
+    <>
+      <Header title="tracker scanner" action="/" />
+      <View style={styles.container}>
+        <Text style={styles.title}>Scan tracker</Text>
+        <BarCodeScanner
+          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+          style={styles.scanner}
+        />
+        {scanned && (
+          <Button
+            title={"Tap to Scan Again"}
+            onPress={() => setScanned(false)}
+          />
+        )}
 
-      <Text style={styles.or}>OR</Text>
+        <Text style={styles.or}>OR</Text>
 
-      <TextInput
-        style={styles.text_input}
-        placeholder={"Tracker name"}
-        onChangeText={(e) => setText(e)}
-        value={text}
-      />
-      <Pressable style={styles.button} onPress={_goToTracker}>
-            <Text style={styles.button_text}>OK</Text>
+        <TextInput
+          style={styles.text_input}
+          placeholder={"Tracker name"}
+          onChangeText={(e) => setText(e)}
+          value={text}
+        />
+        <Pressable style={styles.button} onPress={_goToTracker}>
+          <Text style={styles.button_text}>OK</Text>
         </Pressable>
-    </View>
+      </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex:12,
+    flex: 12,
     //backgroundColor: "#888555",
     alignItems: "center",
     justifyContent: "flex-start",
@@ -108,15 +120,13 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor:config.COLOR_BUTTON,
-    borderRadius:config.BUTTON_BORDER_RADIUS
+    backgroundColor: config.COLOR_BUTTON,
+    borderRadius: config.BUTTON_BORDER_RADIUS,
   },
 
   button_text: {
-    color:"#FFFFFF",
+    color: "#FFFFFF",
     fontSize: 22,
-    padding:7
-
+    padding: 7,
   },
-
 });

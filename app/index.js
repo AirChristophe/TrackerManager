@@ -11,6 +11,7 @@ import { Link, router } from "expo-router";
 import { fontPixel } from "./fontsize";
 import config from "config";
 import { checkAuth } from "./check_auth";
+import Header from "../components/Header";
 
 export default function Page() {
   useEffect(() => {
@@ -18,19 +19,22 @@ export default function Page() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tracker Manager</Text>
+    <>
+      <Header title="Home" />
+      <View style={styles.container}>
+        <Text style={styles.title}>Tracker Manager</Text>
 
-      <Link style={styles.link} push  href="/events">
-        <Text style={styles.item}>Events</Text>
-      </Link>
-      <Link style={styles.link} push href="/tracker_scanner">
-        <Text style={styles.item}>Scan tracker (CODE)</Text>
-      </Link>
-      <Link style={styles.link} push href="/tracker_scanner_text">
-        <Text style={styles.item}>Scan tracker (TEXT)</Text>
-      </Link>
-    </View>
+        <Link style={styles.link} push href="/events">
+          <Text style={styles.item}>Events</Text>
+        </Link>
+        <Link style={styles.link} push href="/tracker_scanner">
+          <Text style={styles.item}>Scan tracker (CODE)</Text>
+        </Link>
+        <Link style={styles.link} push href="/tracker_scanner_text">
+          <Text style={styles.item}>Scan tracker (TEXT)</Text>
+        </Link>
+      </View>
+    </>
   );
 }
 

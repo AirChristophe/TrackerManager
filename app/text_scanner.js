@@ -1,9 +1,9 @@
-
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
-import { Button,Text, View, StyleSheet } from "react-native";
+import { Button, Text, View, StyleSheet } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
-import {  router } from "expo-router";
+import { router } from "expo-router";
+import Header from "../components/Header";
 
 import {
   widthPixel,
@@ -26,12 +26,10 @@ export default function App() {
     getCameraPermissions();
   }, []);
 
-
   const handleTextScanned = () => {
-    console.log("handleTextScanned");    
+    console.log("handleTextScanned");
     setScanned(true);
     detectText();
-    
   };
 
   detectText = async () => {
@@ -41,10 +39,10 @@ export default function App() {
         base64: true,
         skipProcessing: true,
       };
-      console.log("options : " + options); 
+      console.log("options : " + options);
       const { uri } = await this.camera.takePictureAsync(options);
       const visionResp = await RNTextDetector.detectFromUri(uri);
-      alert('visionResp', visionResp);
+      alert("visionResp", visionResp);
     } catch (e) {
       console.warn(e);
     }
@@ -58,12 +56,13 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Scan your text</Text>
-      <Button onPress={handleTextScanned} title="Take">    
-      </Button>
-      
-    </View>
+    <>
+      <Header title="Text scanner" action="/" />
+      <View style={styles.container}>
+        <Text style={styles.title}>Scan your text</Text>
+        <Button onPress={handleTextScanned} title="Take"></Button>
+      </View>
+    </>
   );
 }
 
@@ -85,22 +84,14 @@ const styles = StyleSheet.create({
     margin: 0,
     marginVertical: 40,
     width: "100%",
-
   },
 
   scanner: {
     width: 300,
     height: 400,
     margin: 20,
-
   },
 });
-
-
-
-
-
-
 
 /*
 
