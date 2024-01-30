@@ -2,6 +2,8 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import Footer from "../Footer";
 
+console.log("components layout");
+
 function App(props) {
   return (
     <View

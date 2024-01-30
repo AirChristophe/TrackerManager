@@ -6,6 +6,8 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { fontPixel} from "./fontsize";
 import config from "config";
 import { checkAuth } from "./check_auth";
+import Header from "../components/Header";
+import Layout from "../components/Layout";
 
 export default function Page() {
   const params = useLocalSearchParams();
@@ -33,7 +35,7 @@ export default function Page() {
     const response = await fetch(url);
     const d = await response.json();
 
-  //console.log(d);
+  console.log(d);
   //console.log("length : " + d.length);
     setDatas(d);
   };
@@ -88,34 +90,57 @@ export default function Page() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{params?.name}</Text>
-      <Text style={styles.subtitle}>DELIVER TRACKERS </Text>
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={styles.scanner}  
-      />
-      {scanned && (
-        <Pressable style={styles.button} onPress={() => setScanned(false)}>
-            <Text style={styles.button_text}>Tap to Scan Again</Text>
-        </Pressable>
-      )}
-      {isAlertVisible && <Text style={styles.message}>{msg}</Text>}
-
-       <Text style={styles.text}>Nb trackers delivered : {datas.length}</Text>
-
-       <FlatList style={styles.listing}
-        keyExtractor={(item) => item.id}
-        data={datas}
-        renderItem={({ item }) => (
-          <View style={styles.itemRow}>
-              <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.itemText}>{item.name}</Text>
-              </View>
-          </View>
+    <Layout>
+      <Header title="Associate" action="/event_choice" />
+      <View style={styles.container}>
+        <Text style={styles.title}>{params?.name}</Text>
+        <Text style={styles.subtitle}>DELIVER TRACKERS</Text>
+        <BarCodeScanner
+          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+          style={styles.scanner}  
+        />
+        {scanned && (
+          <Pressable style={styles.button} onPress={() => setScanned(false)}>
+              <Text style={styles.button_text}>Tap to Scan Again</Text>
+          </Pressable>
         )}
-      />
-    </View>
+        {isAlertVisible && <Text style={styles.message}>{msg}</Text>}
+                
+        <View style={{flexDirection: "row" }}>
+          <View style={{flexDirection: "column",margin:5 }}>
+            <Text style={styles.text}>Nb trackers delivered : {datas?.trackers_delivered?.length}</Text>
+            <FlatList style={styles.listing}
+              keyExtractor={(item) => item.id}
+              data={datas?.trackers_delivered}
+              renderItem={({ item }) => (
+                <View style={styles.itemRow}>
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text style={styles.itemText}>{item.name}</Text>
+                    </View>
+                </View>
+              )}
+            />
+          </View>
+          <View style={{flexDirection: "column",margin:5 }}>
+            <Text style={styles.text}>Nb trackers to deliver : {datas?.trackers_to_deliver?.length}</Text>
+            <FlatList style={styles.listing}
+
+            keyExtractor={(item) => item.id}
+            data={datas?.trackers_to_deliver}
+            renderItem={({ item }) => (
+              <View style={styles.itemRow}>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Text style={styles.itemText}>{item.name}</Text>
+                  </View>
+              </View>
+            )}
+          />
+          </View>
+
+        </View>
+        
+      </View>
+      </Layout>
   );
 }
 

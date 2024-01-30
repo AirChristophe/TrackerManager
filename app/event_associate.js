@@ -6,6 +6,8 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { fontPixel} from "./fontsize";
 import config from "config";
 import { checkAuth } from "./check_auth";
+import Header from "../components/Header";
+import Layout from "../components/Layout";
 
 export default function Page() {
   const params = useLocalSearchParams();
@@ -87,34 +89,37 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{params?.name}</Text>
-      <Text style={styles.subtitle}>ASSOCIATE TRACKERS</Text>
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={styles.scanner}  
-      />
-      {scanned && (
-        <Pressable style={styles.button} onPress={() => setScanned(false)}>
-            <Text style={styles.button_text}>Tap to Scan Again</Text>
-        </Pressable>
-      )}
-      {isAlertVisible && <Text style={styles.message}>{msg}</Text>}
-
-       <Text style={styles.text}>Nb trackers in Event : {datas.length}</Text>
-
-       <FlatList style={styles.listing}
-        keyExtractor={(item) => item.id}
-        data={datas}
-        renderItem={({ item }) => (
-          <View style={styles.itemRow}>
-              <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.itemText}>{item.name}</Text>
-              </View>
-          </View>
+    <Layout>
+    <Header title="Associate" action="/event_choice" />
+      <View style={styles.container}>
+        <Text style={styles.title}>{params?.name}</Text>
+        <Text style={styles.subtitle}>ASSOCIATE TRACKERS</Text>
+        <BarCodeScanner
+          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+          style={styles.scanner}  
+        />
+        {scanned && (
+          <Pressable style={styles.button} onPress={() => setScanned(false)}>
+              <Text style={styles.button_text}>Tap to Scan Again</Text>
+          </Pressable>
         )}
-      />
-    </View>
+        {isAlertVisible && <Text style={styles.message}>{msg}</Text>}
+
+        <Text style={styles.text}>Nb trackers in Event : {datas.length}</Text>
+
+        <FlatList style={styles.listing}
+          keyExtractor={(item) => item.id}
+          data={datas}
+          renderItem={({ item }) => (
+            <View style={styles.itemRow}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text style={styles.itemText}>{item.name}</Text>
+                </View>
+            </View>
+          )}
+        />
+      </View>
+      </Layout>
   );
 }
 

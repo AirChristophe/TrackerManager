@@ -6,11 +6,15 @@ import {
   StyleSheet,
   Text,
 } from "react-native";
+
+
+import { fontPixel } from "../../app/fontsize";
 import config from "config";
-import { router } from "expo-router";
+import { Link,router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import Modal from "react-native-modal";
 import Drawer from "../Drawer";
+
 
 function App(props) {
   const { action, title } = props;
@@ -122,31 +126,49 @@ function App(props) {
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
-          height: 60,
+          height: 40,
           justifyContent: "space-between",
+          marginTop:40,
+          marginBottom:20,
           //borderWidth: 1,
           //borderColor: "red",
         }}
       >
+        <View
+          style={{
+            padding: 0,
+            flex:1
+          }}
+        >
         {_getBackItem()}
+        </View>
 
         <View
           style={{
-            padding: 10,
+            padding: 0,
+            flex:4,
+            alignItems: "center",
+            //justifyContent: "flex-start",
+
+            //borderWidth: 1,
+            //borderColor: "green",
           }}
         >
           <Text
             bold
             style={{
               color: "#FFFFFF",
-              fontSize: 22,
+              fontSize: fontPixel(25),
             }}
           >
-            {title}
+            <Link href="/">HOME</Link>
           </Text>
         </View>
 
         <Pressable
+        style={{
+          flex:1
+        }}
           onPress={() => {
             //setModalVisible(true)
             //dispatch(drawerActions.setDrawer(true));

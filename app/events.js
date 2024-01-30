@@ -5,6 +5,7 @@ import { fontPixel } from "./fontsize";
 import config from "config";
 import { checkAuth } from "./check_auth";
 import Header from "../components/Header";
+import Layout from "../components/Layout";
 //import { sayHello } from './MyFunctions';
 
 export default function Page() {
@@ -32,9 +33,10 @@ export default function Page() {
 
   return (
     <>
+      <Layout>
       <Header title="Events" action="/" />
       <View style={styles.container}>
-        <Text style={styles.title}>Events</Text>
+      <Text style={styles.title}>Events</Text>
         <FlatList
           style={styles.listing}
           keyExtractor={(item) => item.E.id}
@@ -58,6 +60,7 @@ export default function Page() {
           )}
         />
       </View>
+      </Layout>
     </>
   );
 }

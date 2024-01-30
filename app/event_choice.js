@@ -13,6 +13,7 @@ import { fontPixel } from "./fontsize";
 import config from "config";
 import { checkAuth } from "./check_auth";
 import Header from "../components/Header";
+import Layout from "../components/Layout";
 
 export default function Page() {
   const params = useLocalSearchParams();
@@ -24,43 +25,45 @@ export default function Page() {
 
   return (
     <>
-      <Header title="Event detail" action="/events" />
-      <View style={styles.container}>
-        <Text style={styles.title}>{params?.name}</Text>
+      <Layout>
+        <Header title="Event" action="/events" />
+        <View style={styles.container}>
+            <Text style={styles.title}>{params?.name}</Text>
 
-        <View style={{ flexDirection: "row" }}>
-          <Link
-            style={styles.button}
-            push
-            href={{
-              pathname: "/event_associate",
-              params: { id: params?.id, name: params?.name },
-            }}
-          >
-            <Text style={styles.text}>ASSOCIATE</Text>
-          </Link>
-          <Link
-            style={styles.button}
-            push
-            href={{
-              pathname: "/event_deliver",
-              params: { id: params?.id, name: params?.name },
-            }}
-          >
-            <Text style={styles.text}>DELIVER</Text>
-          </Link>
-          <Link
-            style={styles.button}
-            push
-            href={{
-              pathname: "/event_collect",
-              params: { id: params?.id, name: params?.name },
-            }}
-          >
-            <Text style={styles.text}>COLLECT</Text>
-          </Link>
+            <View style={{ flexDirection: "row" }}>
+            <Link
+                style={styles.button}
+                push
+                href={{
+                pathname: "/event_associate",
+                params: { id: params?.id, name: params?.name },
+                }}
+            >
+                <Text style={styles.text}>ASSOCIATE</Text>
+            </Link>
+            <Link
+                style={styles.button}
+                push
+                href={{
+                pathname: "/event_deliver",
+                params: { id: params?.id, name: params?.name },
+                }}
+            >
+                <Text style={styles.text}>DELIVER</Text>
+            </Link>
+            <Link
+                style={styles.button}
+                push
+                href={{
+                pathname: "/event_collect",
+                params: { id: params?.id, name: params?.name },
+                }}
+            >
+                <Text style={styles.text}>COLLECT</Text>
+            </Link>
+            </View>
         </View>
-      </View>
+      </Layout>
     </>
   );
 }
