@@ -90,6 +90,7 @@ function App(props) {
           backdropOpacity={0}
           isVisible={true}
           onBackdropPress={() => {
+            setDrawerStatus(!drawerStatus);
             //setModalVisible(false)
             //dispatch(drawerActions.setDrawer(false));
           }}
