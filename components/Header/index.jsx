@@ -43,7 +43,7 @@ function App(props) {
   };
 
   const _getBackItem = () => {
-    if (action) {
+    if (action == null) {
       return (
         <Pressable
           style={
@@ -53,7 +53,8 @@ function App(props) {
             }
           }
           onPress={() => {
-            router.push(action);
+            //router.push(action);
+            router.back();
           }}
         >
           <View

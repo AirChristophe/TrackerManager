@@ -6,6 +6,7 @@ import { Camera, CameraType } from "expo-camera";
 import { fontPixel } from "./fontsize";
 import config from "config";
 import Header from "../components/Header";
+import Layout from "../components/Layout";
 
 export default function App() {
   const [text, setText] = useState("");
@@ -147,7 +148,8 @@ export default function App() {
 
   return (
     <>
-      <Header title="tracker scanner text" action="/" />
+    <Layout>
+      <Header title="tracker scanner text" />
       <View style={styles.container}>
         <Text style={styles.title}>Scan tracker</Text>
         <Camera
@@ -192,6 +194,7 @@ export default function App() {
 
         {isWaitingVisible && <Text style={styles.message}>Processing...</Text>}
       </View>
+      </Layout>
     </>
   );
 }

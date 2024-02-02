@@ -90,7 +90,7 @@ export default function Page() {
 
   return (
     <Layout>
-      <Header title="Associate" action="/event_choice" />
+      <Header title="Associate" />
       <View style={styles.container}>
         <Text style={styles.title}>{params?.name}</Text>
         <Text style={styles.subtitle}>COLLECT TRACKERS </Text>

@@ -4,6 +4,7 @@ import { Button, Text, View, StyleSheet } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { router } from "expo-router";
 import Header from "../components/Header";
+import Layout from "../components/Layout";
 
 import {
   widthPixel,
@@ -57,11 +58,13 @@ export default function App() {
 
   return (
     <>
-      <Header title="Text scanner" action="/" />
+    <Layout>
+      <Header title="Text scanner" />
       <View style={styles.container}>
         <Text style={styles.title}>Scan your text</Text>
         <Button onPress={handleTextScanned} title="Take"></Button>
       </View>
+      </Layout>
     </>
   );
 }

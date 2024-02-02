@@ -34,7 +34,7 @@ export default function Page() {
   return (
     <>
       <Layout>
-      <Header title="Events" action="/" />
+      <Header title="Events" />
       <View style={styles.container}>
       <Text style={styles.title}>Events</Text>
         <FlatList

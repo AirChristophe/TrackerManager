@@ -14,6 +14,7 @@ import { fontPixel } from "./fontsize";
 import config from "config";
 import { checkAuth } from "./check_auth";
 import Header from "../components/Header";
+import Layout from "../components/Layout";
 
 export default function Page() {
   const params = useLocalSearchParams();
@@ -187,7 +188,8 @@ export default function Page() {
 
   return (
     <>
-      <Header title="Tracker detail" action="/" />
+      <Layout>
+      <Header title="Tracker detail" />
       <View style={styles.container}>
         <View style={{}}>
           <Text style={styles.title}>{data?.name}</Text>
@@ -410,6 +412,7 @@ export default function Page() {
           )}
         />
       </View>
+      </Layout>
     </>
   );
 }

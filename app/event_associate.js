@@ -90,7 +90,7 @@ console.log("_affectTracker : tracker_name : " + tracker_name);
 
   return (
     <Layout>
-    <Header title="Associate" action="/event_choice" />
+    <Header title="Associate" />
       <View style={styles.container}>
         <Text style={styles.title}>{params?.name}</Text>
         <Text style={styles.subtitle}>ASSOCIATE TRACKERS</Text>

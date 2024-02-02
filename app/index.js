@@ -22,7 +22,7 @@ export default function Page() {
   return (
     <>
       <Layout>
-        <Header title="Tracker Manager" />
+        <Header title="Tracker Manager" action="/"/>
         <View style={styles.container}>
         <Text style={styles.title}>Tracker Manager</Text>
           <Link style={styles.link} push href="/events">
