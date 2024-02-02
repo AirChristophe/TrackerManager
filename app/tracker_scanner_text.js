@@ -7,6 +7,7 @@ import { fontPixel } from "./fontsize";
 import config from "config";
 import Header from "../components/Header";
 import Layout from "../components/Layout";
+import Layout from "../components/Layout";
 
 export default function App() {
   const [text, setText] = useState("");
