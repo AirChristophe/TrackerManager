@@ -178,6 +178,7 @@ export default function Page() {
       });
   };
 
+  
   useEffect(() => {
     checkAuth();
     _fetchData();
