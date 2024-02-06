@@ -5,7 +5,6 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { router } from "expo-router";
 import Header from "../components/Header";
 import Layout from "../components/Layout";
-import Layout from "../components/Layout";
 
 import {
   widthPixel,
