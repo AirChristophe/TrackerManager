@@ -53,7 +53,8 @@ export default function App() {
 
   return (
     <>
-      <Header title="tracker scanner" action="/" />
+      <Layout>
+      <Header title="Tracker scanner" />
       <View style={styles.container}>
         <Text style={styles.title}>Scan tracker</Text>
         <BarCodeScanner
@@ -79,6 +80,7 @@ export default function App() {
           <Text style={styles.button_text}>OK</Text>
         </Pressable>
       </View>
+      </Layout>
     </>
   );
 }
